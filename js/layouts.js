@@ -18,6 +18,8 @@
   const extra = (c) => `<div class="lx"><button class="pill soft" data-a="lflog">${c.ic('plus', 16, 3)} Registrar otra comida</button></div>`;
   const macros = (c) => [['Proteína', c.tot.p, c.t.p], ['Carbos', c.tot.ch, c.t.ch], ['Grasas', c.tot.f, c.t.f]];
 
+  J.LK = { meal, drops, work, head, extra, macros, pct, SL };
+
   /* ATARDECER: el camino del sol (línea de tiempo vertical en zigzag) */
   L.sunset = (c) => {
     const p = pct(c.tot.kcal, c.t.kcal), a = p * Math.PI, sx = 170 - 150 * Math.cos(a), sy = 165 - 150 * Math.sin(a);

@@ -94,13 +94,15 @@
     { id: 'winter', name: 'Invierno', blurb: 'Nieve cayendo, montañas y pinos con frutas abrigadas.', nav: 'bubble', comp: 'pera', set: ['pera', 'coliflor', 'arandano', 'manzana'], pv: { bg: 'linear-gradient(180deg,#BFDDF3,#FAFDFF)', ink: '#1F3B5A', card: 'rgba(255,255,255,.85)', acc: '#3E8EDB', fd: "'Mountains of Christmas'", fb: "'Quicksand'", t: 'Menú burbuja' } },
   ];
   J.themeById = (id) => J.THEMES.find((t) => t.id === id) || J.THEMES[0];
+  J.kit = { peek, cloud, stars, flakes, bird, r01 };
+  J.SCENES2 = {};
   J.applyTheme = function (id) {
     const t = J.themeById(id), root = document.documentElement;
     root.dataset.theme = t.id; root.dataset.nav = t.nav;
     const bg = document.querySelector('.bg'); if (!bg) return t;
     let sc = bg.querySelector('.scene-host'); if (!sc) { sc = document.createElement('div'); sc.className = 'scene-host'; sc.style.cssText = 'position:absolute;inset:0'; bg.appendChild(sc); }
-    sc.innerHTML = SCENES[t.id] ? SCENES[t.id]() : '';
-    const tc = document.querySelector('meta[name=theme-color]'); const col = { sunset: '#2B1B4B', galaxy: '#0C0824', arcade: '#1A1033', neon: '#0B0618', beach: '#7FD8F0', sky: '#4FAEFF', garden: '#CFEFFF', winter: '#BFDDF3', notebook: '#FDFBF3', matcha: '#EFF3E6' }[t.id]; if (tc && col) tc.content = col;
+    const mk = SCENES[t.id] || J.SCENES2[t.id]; sc.innerHTML = mk ? mk() : '';
+    const tc = document.querySelector('meta[name=theme-color]'); const col = { sunset: '#2B1B4B', galaxy: '#0C0824', arcade: '#1A1033', neon: '#0B0618', beach: '#7FD8F0', sky: '#4FAEFF', garden: '#CFEFFF', winter: '#BFDDF3', notebook: '#FDFBF3', matcha: '#EFF3E6' }[t.id] || t.meta; if (tc && col) tc.content = col;
     return t;
   };
 })(window.J = window.J || {});

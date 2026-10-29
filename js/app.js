@@ -173,7 +173,7 @@
   function hoyCtx(m, M, t, tot) {
     const w = J.WEEK[S.profile.lvl][todayIdx()], pts = Object.keys(S.log).length * 10 + S.garden.owned.length * 25;
     const d = new Date();
-    return { m, t, tot, esc, nf, ic, w, name: S.profile.name, greet: M.greet, water: L().water, workDone: L().act.some((a) => a.rt), sel: wsel, pts, lvl: 1 + Math.floor(pts / 100),
+    return { hr: d.getHours() + d.getMinutes() / 60, m, t, tot, esc, nf, ic, w, name: S.profile.name, greet: M.greet, water: L().water, workDone: L().act.some((a) => a.rt), sel: wsel, pts, lvl: 1 + Math.floor(pts / 100),
       dateTxt: d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' }), mas: (k, sz, o) => J.mascot(k, sz, o),
       slots: SLOTS.map(([s, nm]) => ({ s, nm, pe: planEntry(todayIdx(), s), done: L().food.some((x) => x.ref === 'plan:' + s) })) };
   }
@@ -548,7 +548,7 @@
 
   /* ---------- Inicio ---------- */
   { const st = document.createElement('style'); st.textContent = J.mascotCss + J.animCss; document.head.appendChild(st); }
-  if (!S.fx) S.fx = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 3 ? 'lite' : 'full';
+  if (!S.fx) S.fx = 'lite';
   document.documentElement.dataset.fx = S.fx;
   { let st; addEventListener('scroll', () => { const h = document.documentElement; if (!h.classList.contains('scrolling')) h.classList.add('scrolling'); clearTimeout(st); st = setTimeout(() => h.classList.remove('scrolling'), 160); }, { passive: true }); }
   J.applyTheme(S.theme);
