@@ -126,15 +126,22 @@
     shades: '<path d="M30 60h60v8q-4 10-14 10t-14-10h-4q-4 10-14 10t-14-10z" fill="#3A2142" opacity=".92"/>',
     bow: '<path d="M60 128l-18-10v20zM60 128l18-10v20z" fill="#FF7B8F"/><circle cx="60" cy="128" r="5" fill="#E8294F"/>',
   };
-  // Dibuja una mascota. o = { acc, mood, anim, cls }
-  J.mascot = function (key, size, o) {
-    o = o || {}; const m = J.MASCOT[key] || J.MASCOT.aguacate, h = Math.round(size * 1.2);
+  const TOP = { round: 37, oval: 30, pear: 22, heart: 38, carrot: 36, cuke: 22, eggplant: 36, chile: 30, bean: 24, broccoli: 22, mushroom: 18, pineapple: 14, melonslice: 62, grapes: 34, corn: 24, pumpkin: 40, bulb: 18, pepper: 44, cherry: 20, leafy: 30, nopal: 30, coconut: 44, berry: 40, kiwi: 34, papaya: 14, melon: 36, potato: 34, beet: 36, radish: 36, egg: 18, drum: 12, fish: 40, tofu: 34, cheese: 46, rice: 66 };
+  // Cuerpo + cara (sin <svg>), para usarlo dentro de otras escenas. o = { acc, mood }
+  J.mascotInner = function (key, o) {
+    o = o || {}; const m = J.MASCOT[key] || J.MASCOT.aguacate;
     let body, fx = 60, fy = 84, fs = 1, faces = null;
     if (m.t === 'avo') { body = AVO(o); fy = 70; }
     else { const r = T[m.t](m.c, m.o); body = r.b; fx = r.fx || 60; fy = r.fy || 84; fs = r.fs || 1; faces = r.faces; }
     const fc = faces ? faces.map((f) => face(f[0], f[1], f[2], o.mood)).join('') : face(fx, fy, fs, o.mood);
+    const ay = m.t === 'avo' ? 0 : (TOP[m.t] != null ? TOP[m.t] - 8 : 0);
+    return body + fc + (o.acc && ACC[o.acc] ? `<g transform="translate(0 ${ay})">${ACC[o.acc]}</g>` : '');
+  };
+  // Dibuja una mascota. o = { acc, mood, anim, cls }
+  J.mascot = function (key, size, o) {
+    o = o || {}; const m = J.MASCOT[key] || J.MASCOT.aguacate, h = Math.round(size * 1.2);
     const anim = o.anim === null ? '' : 'm-' + (o.anim || m.a);
-    return `<svg class="mas ${anim} ${o.cls || ''}" width="${size}" height="${h}" viewBox="0 -12 120 152" role="img" aria-label="${m.n}, mascota de ${m.k}">${body}${fc}${o.acc && ACC[o.acc] ? `<g transform="translate(${m.t === 'avo' ? 0 : 0} ${m.t === 'avo' ? 0 : (o.ay != null ? o.ay : 0)})">${ACC[o.acc]}</g>` : ''}</svg>`;
+    return `<svg class="mas ${anim} ${o.cls || ''}" width="${size}" height="${h}" viewBox="0 -12 120 152" role="img" aria-label="${m.n}, mascota de ${m.k}">${J.mascotInner(key, o)}</svg>`;
   };
   // Dibujo estático pequeño de la silueta (para colección bloqueada)
   J.mascotLocked = (key, size) => `<span class="mas-lock" style="filter:brightness(0) opacity(.28)">${J.mascot(key, size, { anim: null })}</span>`;
