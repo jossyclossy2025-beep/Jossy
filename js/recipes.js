@@ -76,95 +76,95 @@
       'en costra de hierbas|3|45|Mezcla hierbas frescas picadas con {st} y aceite hasta formar una pasta.|Unta {0} y séllalo en sartén 2 min por lado.|Hornea a 190 °C 12-15 min.|Saltea {1} con el jugo de la sartén.|Reposa 5 min y sirve con {2}.',
       'estofado lento|3|90|Sella {0} en cubos en una olla con aceite.|Añade {1}, {st} y caldo bajo en sodio hasta cubrir.|Cocina tapado a fuego bajo 60-70 min.|Sirve sobre {2}.',
       'en freidora de aire|1|18|Precalienta la freidora de aire a 190 °C.|Sazona {0} con {st}.|Cocina {0} 10-12 min y {1} 8 min, moviendo a la mitad.|Sirve con {2}.'],
-    salad: ['fresca|1|10|Lava y corta {0} en trozos.|Añade {1} desmenuzado o en cubos.|Agrega {2}.|Aliña con limón, aceite de oliva y {st}.',
-      'tibia|2|20|Asa o saltea ligeramente {0}.|Cocina {1} y córtalo en tiras.|Mezcla con {2} y aliña con {st} mientras está tibio.',
-      'en bowl con vinagreta casera|2|20|Bate limón, aceite, mostaza y {st} para la vinagreta.|Acomoda {0} como base y coloca {1} encima.|Termina con {2} y la vinagreta.',
-      'estilo mediterráneo|3|30|Marina {1} con {st} 15 min.|Asa {1} y {0} ligeramente.|Arma la ensalada con {2} y reposa 5 min antes de servir.'],
-    bowl: ['bowl|1|20|Cuece o calienta {0}.|Prepara {1} según tu preferencia.|Saltea o asa {2}.|Arma el bowl y termina con {3} y {st}.',
-      'bowl al horno|2|35|Hornea {2} a 200 °C 20 min con {st}.|Cocina {1}.|Sirve sobre {0} y añade {3}.',
-      'poke bowl|3|35|Prepara {0} y deja enfriar.|Corta {1} en cubos y marínalo 15 min con {st}.|Corta {2} fino y arma el bowl.|Termina con {3}.'],
-    wrap: ['tacos|1|15|Calienta las tortillas o las hojas.|Cocina {0} con {st} en sartén y deshébralo o córtalo.|Saltea {1} 3 min.|Rellena y sirve con salsa fresca.',
-      'wraps|2|20|Cocina {0} con {st}.|Saltea {1}.|Rellena las hojas, enrolla y corta a la mitad.',
-      'tacos al horno|2|30|Precalienta el horno a 190 °C.|Mezcla {0} cocido con {1} y {st}.|Rellena, dora en el horno 10 min y sirve.'],
-    soup: ['sopa|1|30|Sofríe cebolla y {1} 3 min.|Agrega {0}, caldo y {st}.|Cocina 20 min y sirve caliente.',
-      'crema|2|35|Cuece {1} en caldo con {st} hasta suavizar.|Licúa hasta obtener una crema suave.|Añade {0} y calienta 5 min.',
-      'caldo ligero|1|25|Hierve el caldo con {st}.|Añade {0} y {1} y cocina 15 min.',
-      'pozole ligero|3|60|Hierve {0} en caldo con {st} 30 min.|Agrega {1} y cocina 20 min más.|Sirve con lechuga, limón y rábano.'],
-    stew: ['curry|2|35|Sofríe cebolla con aceite y {st}.|Añade {0} y {1} y cocina 5 min.|Vierte leche de coco ligera y cocina 15 min.|Sirve sobre {2}.',
-      'guiso|2|40|Sofríe {1} con {st}.|Agrega {0} y caldo y cocina 25 min.|Sirve con {2}.',
-      'chili|3|60|Sofríe cebolla con {st}.|Añade {0}, {1} y tomate triturado.|Cocina a fuego bajo 40 min.|Sirve con {2}.',
-      'tinga|3|50|Cuece y deshebra {0}.|Licúa tomate con {st} y cocina la salsa 10 min.|Mezcla con {1} y {0}; cocina 15 min.|Sirve con {2}.'],
-    patty: ['hamburguesa|2|25|Mezcla {0} con {st} y forma discos.|Cocina en sartén o plancha 4-5 min por lado.|Sirve en hojas de lechuga con {1} y {2}.',
-      'albóndigas|3|40|Mezcla {0} con {st} y forma bolitas.|Hornea a 200 °C 18 min.|Sirve con {1} y {2}.',
-      'brochetas|2|30|Corta {0} y {1} en cubos y marina 15 min con {st}.|Ensarta en palillos y asa 10 min girando.|Acompaña con {2}.',
-      'croquetas al horno|3|45|Tritura {0} con {st} y forma croquetas.|Hornea a 200 °C 20 min girando a la mitad.|Sirve con {1} y {2}.'],
-    stuffed: ['relleno|2|40|Precalienta el horno a 190 °C.|Hueca {0} y reserva la pulpa.|Cocina {1} con la pulpa y {st}; rellena.|Hornea 25 min.',
-      'rellenos gratinados|3|50|Hornea {0} 15 min para suavizar.|Rellena con {1} y {2} sazonado con {st}.|Gratina 10 min.'],
-    omelet: ['omelette|1|10|Bate {f} con sal y pimienta.|Saltea {0} 2 min en sartén antiadherente.|Vierte el huevo, añade {1} y dobla cuando cuaje.',
-      'frittata al horno|2|25|Precalienta el horno a 190 °C.|Saltea {0} y mezcla con {f} batido y {1}.|Hornea 15 min hasta dorar.',
-      'muffins de huevo|2|30|Bate {f} y mezcla con {0}, {1} y {st}.|Vierte en moldes y hornea a 180 °C 18 min.',
-      'soufflé|3|45|Separa claras y yemas de {f}.|Mezcla yemas con {0}, {1} y {st}.|Monta las claras, incorpora con movimientos envolventes y hornea a 180 °C 25 min.'],
-    yog: ['bowl|1|5|Sirve {f} en un bowl.|Añade {0} y {1}.|Termina con {2} y {st}.',
-      'parfait en vaso|1|8|Alterna capas de {f}, {0} y {1} en un vaso.|Corona con {2} y {st}.',
-      'bowl helado (frozen)|2|15|Mezcla {f} con {0} y congela 40 min.|Mezcla, rompe y bate hasta cremoso.|Añade {1}, {2} y {st}.',
-      'yogur horneado|3|40|Mezcla {f} con {0}, huevo y {st}.|Vierte en moldes y hornea a 170 °C 25 min.|Enfría y corona con {1} y {2}.'],
-    oats: ['avena cocida|1|10|Cocina {f} con {2} 5 min removiendo.|Añade {0} y {st}.|Termina con {1}.',
-      'overnight oats|1|5|Mezcla {f} con {2} y {st} en un frasco.|Refrigera toda la noche.|Corona con {0} y {1}.',
-      'avena horneada|2|35|Mezcla {f} con {2}, {0} y {st}.|Hornea a 180 °C 25 min.|Termina con {1}.',
-      'granola casera|3|45|Mezcla {f} con {1} y {st}.|Hornea a 150 °C 30 min moviendo cada 10.|Sirve con {0} y {2}.'],
-    toast: ['tostada|1|8|Tuesta {f}.|Unta {0}.|Añade {1} y {2} encima.',
-      'sándwich abierto|1|10|Tuesta {f} y unta {0}.|Coloca {1} y espolvorea {2}.',
-      'bocadillo gratinado|2|15|Unta {0} en {f}.|Cubre con {1} y gratina 5 min.|Termina con {2}.'],
-    scramble: ['revuelto|1|12|Desmenuza {f} y saltéalo 4 min con {st}.|Añade {0} y {1}.|Termina con {2}.',
-      'scramble tipo mexicano|2|18|Saltea cebolla y {0} 3 min.|Agrega {f} desmenuzado con {st}.|Suma {1} y sirve con {2}.',
-      'burrito bowl|3|30|Prepara {f} con {st}.|Asa {0} y {1}.|Arma el bowl y termina con {2}.'],
-    pancake: ['panqueques|2|20|Licúa {f} hasta formar una masa.|Cocina porciones en sartén antiadherente 2 min por lado.|Sirve con {0} y {1}.',
-      'waffles|3|25|Licúa {f}.|Cocina en wafflera 4 min.|Sirve con {0} y {1}.',
-      'crepas|3|30|Licúa {f} con más líquido hasta una mezcla fina.|Cocina crepas delgadas.|Rellena con {0} y {1}.'],
-    snackraw: ['crudos|1|5|Corta {0} en bastones.|Sirve con {1} para untar.',
-      'chips al horno|2|30|Corta {0} muy fino y sazona con {st}.|Hornea a 180 °C 20 min.|Sirve con {1}.',
-      'croquetas de verdura|3|35|Ralla {0} y mezcla con {st}.|Forma bolitas y hornea a 200 °C 20 min.|Sirve con {1}.'],
-    mix: ['mix|1|3|Combina {0} y {1}.|Divide en porciones.',
-      'mix tostado|2|15|Tuesta {0} a 160 °C 8 min con {st}.|Mezcla con {1} y deja enfriar.'],
-    balls: ['bolitas|2|15|Tritura {f} con {0} hasta formar una masa.|Añade {1} y forma bolitas.|Refrigera 20 min.',
-      'barritas|3|40|Mezcla {f}, {0} y {1}.|Presiona en un molde y hornea a 170 °C 20 min.|Enfría y corta.'],
-    roll: ['rollitos|1|10|Extiende {1}.|Coloca {0} y {2}.|Enrolla y corta.',
-      'rollitos al horno|2|20|Prepara {1}, {0} y {2}.|Enrolla y asegura con palillos.|Hornea 10 min a 180 °C.'],
-    eggs: ['huevos cocidos con|1|15|Cuece {f} 10 min y enfría.|Pela, corta y sirve con {0} y {1}.',
-      'huevos rellenos de|2|20|Cuece {f} y córtalos por la mitad.|Mezcla las yemas con {0} y {st}.|Rellena y termina con {1}.'],
-    mousse: ['mousse|2|15|Licúa {0} con {f} hasta que quede suave.|Refrigera 30 min.|Sirve con {1} y {2}.',
-      'pudín|1|10|Mezcla {f} con {0} y refrigera 2 h.|Sirve con {1} y {2}.',
-      'helado casero|2|10|Congela {0} en trozos.|Licúa con {f} hasta cremoso.|Sirve con {1} y {2}.',
-      'paletas heladas|2|10|Licúa {f} con {0}.|Vierte en moldes y congela 4 h.',
-      'copa en capas|3|25|Prepara una crema con {f}.|Alterna capas de {0} y {1}.|Termina con {2}.'],
-    bake: ['al horno|1|25|Precalienta el horno a 180 °C.|Corta {0} y coloca en una charola con {st}.|Hornea 20 min.|Sirve con {1} y {2}.',
-      'en sartén|1|12|Cocina {0} en una sartén con {st} 6-8 min.|Sirve con {1} y {2}.',
-      'en brochetas asadas|2|18|Ensarta {0} y asa 3 min por lado.|Sirve con {1} y {2}.',
-      'crumble|3|40|Mezcla {1} con {f} para el crumble.|Hornea {0} 15 min, cubre con el crumble y hornea 15 min más.|Sirve con {2}.'],
-    brownie: ['brownie|3|40|Tritura {0} con {f} hasta formar una masa.|Hornea a 180 °C 25 min.|Enfría y cubre con {1} y {2}.',
-      'galletas|2|30|Mezcla {0} con {f} y forma galletas.|Hornea a 175 °C 12 min.|Decora con {1} y {2}.',
-      'muffins|3|35|Mezcla {0} con {f}.|Rellena moldes y hornea a 180 °C 22 min.|Decora con {1} y {2}.',
-      'mug cake|1|5|Mezcla {0} con {f} en una taza.|Microondas 90 s.|Termina con {1} y {2}.'],
-    nice: ['helado|1|8|Congela {0} y {1} en trozos.|Procesa hasta cremoso con {f} y {st}.',
-      'sorbete|2|10|Congela {0} y {1}.|Procesa con {f} y hielo hasta una textura suave.',
-      'granizado|1|10|Congela {0} y {1}.|Tritura con {f} hasta granizar.'],
-    panna: ['panna cotta ligera|3|30|Disuelve gelatina sin sabor en agua tibia.|Mezcla con {f} y {st}; vierte en vasitos y refrigera 4 h.|Corona con {0} y {1}.',
-      'cheesecake en vaso|2|20|Bate {f} con {st}.|Alterna capas con {2}, {0} y {1}.|Refrigera 1 h.',
-      'crema fría|1|10|Mezcla {f} con {st}.|Sirve con {0} y {1}.'],
-    smooth: ['licuado|1|5|Licúa {0} con {f}.|Añade {1} y {st} y licúa 30 s.|Sirve frío.',
-      'smoothie verde|1|5|Licúa {1} con {f} 30 s.|Añade {0} y {st} y licúa de nuevo.',
-      'batido proteico|1|5|Licúa {0} con {f}.|Agrega {1} y {st}.',
-      'batido helado|2|8|Congela {0} en trozos.|Licúa con {f} y {1}.|Sirve espeso.'],
-    infus: ['agua infusionada|1|10|Corta {0} y {1}.|Colócalos en una jarra con {f}.|Refrigera 2 h.',
-      'té helado|2|20|Prepara el té con {f}.|Añade {0} y {1} y enfría.|Sirve con hielo.',
-      'limonada natural|1|8|Exprime limón y mezcla con {f}.|Añade {0} y {1}.|Endulza con stevia si quieres.',
-      'kombucha exprés|3|30|Prepara una infusión fuerte.|Añade {0} y {1}.|Enfría y sirve con gas natural.'],
-    hot: ['latte caliente|1|8|Calienta {f}.|Disuelve {0}.|Añade {1} y {st}.',
-      'té especiado|2|12|Hierve {f} con {1}.|Añade {0} y reposa 5 min.|Cuela y sirve.',
-      'chocolate caliente fit|2|10|Calienta {f}.|Bate {0} y {1} hasta integrar.|Sirve humeante.'],
-    juice: ['jugo verde|1|8|Licúa {0} con agua.|Añade {1} y {2}.|Cuela si prefieres.',
-      'jugo detox|2|10|Licúa {0} y {1}.|Agrega {2} y hielo.',
-      'licuado verde cremoso|2|8|Licúa {0} con {f}.|Añade {1} y {2}.'],
+    salad: ['fresca|1|10|Pon {0} ya cortado en un bol grande.|Agrega {1}: si es proteína cocida, córtala en cubos de 1.5 cm o desmenúzala; si es queso, desmorónalo.|Añade {2} encima, sin mezclar todavía.|En una taza bate 1 cucharada de aceite de oliva, el jugo de ½ limón, una pizca de sal y {st} con un tenedor hasta que se integre (esa es la vinagreta).|Vierte la vinagreta justo antes de comer y mezcla con dos cucharas de abajo hacia arriba, 20 segundos, para que no se aplaste la verdura.',
+      'tibia|2|20|Calienta una sartén a fuego medio con 1 cucharadita de aceite y saltea {0} 2-3 minutos, solo hasta que se ablande un poco pero conserve color y textura.|Cuece {1} en otra sartén hasta que esté bien cocido: dorado por fuera y sin partes crudas por dentro (el pollo debe llegar a 74 °C); déjalo reposar 3 minutos y córtalo en tiras.|Pon {0} en un plato hondo, acomoda {1} encima y añade {2}.|Mezcla en una taza 1 cucharada de aceite de oliva, el jugo de ½ limón, sal y {st}, y vierte sobre la ensalada mientras todavía está tibia, para que absorba el sabor.',
+      'en bowl con vinagreta casera|2|20|Prepara la vinagreta: en un frasco con tapa pon 1 cucharada de aceite de oliva, 1 cucharada de jugo de limón, 1 cucharadita de mostaza (opcional), una pizca de sal, pimienta y {st}; cierra y agita 15 segundos hasta que se vea cremosa.|Acomoda {0} en el fondo de un bowl, formando una cama.|Coloca {1} en una sección del bowl, {2} en otra, sin mezclar, para que se vea bonito.|Rocía la vinagreta en zigzag justo antes de comer.',
+      'estilo mediterráneo|3|30|Marina {1} 15 minutos con el jugo de ½ limón, 1 cucharadita de aceite, sal y {st}.|Calienta una sartén a fuego medio-alto y cuece {1} hasta que esté dorado por fuera y bien cocido por dentro (pollo y pavo: 74 °C; pescado: se desmorona con el tenedor).|Mientras reposa 3 minutos, saltea {0} 2 minutos en la misma sartén para aprovechar los jugos.|Arma la ensalada en un plato con {0}, {1} en rebanadas y {2}; termina con un hilo de aceite de oliva.'],
+    bowl: ['bowl|1|20|Cocina o calienta {0} (si es arroz, quinoa o pasta, que esté caliente y suelto; si es camote o papa, que un tenedor entre sin resistencia).|Cocina {1} en una sartén con 1 cucharadita de aceite a fuego medio-alto hasta que esté dorado por fuera y bien cocido por dentro (que no queden partes rosadas); déjalo reposar 3 minutos y córtalo.|Saltea o ásalo {2} 4-5 minutos, hasta que esté suave pero con un poco de textura.|Arma el bowl: pon {0} en el fondo y acomoda {1} y {2} en secciones; termina con {3} y sazona con {st}.',
+      'bowl al horno|2|35|Precalienta el horno a 200 °C y forra una charola con papel pergamino.|Mezcla {2} con 1 cucharadita de aceite, sal y {st}, extiéndelo en una sola capa y hornea 20 minutos, volteando a la mitad.|Mientras, cocina {1} en sartén a fuego medio-alto hasta que esté dorado y bien cocido, y deja reposar 3 minutos.|Calienta {0}, acomoda todo en un bowl y termina con {3}.',
+      'poke bowl|3|35|Cocina {0} y déjalo enfriar 10 minutos para que no cueza lo demás.|Corta {1} (ya cocido y frío) en cubos de 2 cm y mézclalo 10 minutos con 1 cucharadita de salsa de soya baja en sodio, unas gotas de limón y {st}.|Corta {2} en láminas muy finas.|Arma el bowl: arroz o base al fondo, {1} marinado en un lado, {2} en otro y termina con {3}.'],
+    wrap: ['tacos|1|15|Calienta las tortillas o las hojas de lechuga: las tortillas, 30 segundos por lado en una sartén seca; envuélvelas en un trapo para que no se endurezcan.|Calienta una sartén a fuego medio-alto con 1 cucharadita de aceite y cocina {0} con {st} 5-6 minutos hasta que esté dorado y bien cocido; deshébralo o córtalo en trocitos.|Saltea {1} en la misma sartén 3-4 minutos, hasta que esté suave.|Reparte el relleno en el centro de cada taco, sin sobrepasar 2 cucharadas por pieza para que no se rompa, y termina con salsa fresca o jugo de limón.',
+      'wraps|2|20|Cocina {0} con {st} en una sartén caliente hasta que esté dorado y bien cocido (5-6 minutos); deja reposar 2 minutos y córtalo en tiras.|Saltea {1} 3-4 minutos en la misma sartén.|Pon la hoja o tortilla sobre la tabla, coloca el relleno en el centro dejando 3 cm libres en los bordes.|Dobla primero los lados hacia adentro, luego enrolla desde abajo apretando con firmeza, y córtalo por la mitad en diagonal.',
+      'tacos al horno|2|30|Precalienta el horno a 190 °C y forra una charola con papel.|Mezcla {0} ya cocido con {1} picado y {st}.|Rellena cada tortilla con 2 cucharadas, dóblala y acomódala en la charola, con el doblez hacia abajo.|Rocía con unas gotas de aceite y hornea 10-12 minutos hasta que estén doradas y crujientes.'],
+    soup: ['sopa|1|30|Calienta 1 cucharadita de aceite en una olla a fuego medio y sofríe la cebolla picada 3 minutos, hasta que se vea transparente.|Agrega {1} y cocina 3 minutos, moviendo.|Añade {0}, el caldo, {st} y sal; sube el fuego hasta que hierva, luego baja a fuego bajo.|Tapa y cocina 20 minutos, hasta que las verduras estén suaves al picarlas con un tenedor.|Prueba el caldo y ajusta la sal.',
+      'crema|2|35|Calienta 1 cucharadita de aceite en una olla a fuego medio y sofríe la cebolla 3 minutos.|Agrega {1} en trozos, el caldo, {st} y sal; hierve, baja el fuego y cocina tapado 15-20 minutos hasta que todo esté muy suave.|Deja enfriar 5 minutos y licúa en tandas pequeñas (con la tapa sujeta con un trapo, porque el vapor empuja) hasta que quede una crema sin grumos.|Regresa a la olla, añade {0} y calienta 5 minutos a fuego bajo, moviendo. Si queda muy espesa, agrega un poco de agua caliente.',
+      'caldo ligero|1|25|Pon el caldo a hervir en una olla con {st}.|Agrega {0} y {1} y cocina 15 minutos a fuego medio-bajo.|Prueba una verdura: debe estar suave. Ajusta la sal y sirve bien caliente.',
+      'pozole ligero|3|60|Hierve {0} en el caldo con {st} y sal, 30 minutos a fuego bajo, quitando con una cuchara la espuma que suba a la superficie.|Agrega {1} y cocina 20 minutos más.|Prueba y ajusta la sal.|Sirve con lechuga picada, limón y rábano en rodajas.'],
+    stew: ['curry|2|35|Calienta 1 cucharada de aceite en una sartén honda a fuego medio y sofríe la cebolla picada 3 minutos con {st}, hasta que huela rico.|Agrega {0} y {1} en trozos y cocina 5 minutos, moviendo.|Añade el tomate, la leche de coco ligera y sal; cuando suelte el hervor, baja el fuego, tapa y cocina 15 minutos.|Destapa los últimos 3 minutos para que espese. Sirve sobre {2}.',
+      'guiso|2|40|Calienta el aceite en una olla a fuego medio y sofríe {1} con {st} 5 minutos.|Agrega {0}, el tomate picado, sal y ½ taza de agua o caldo.|Tapa y cocina a fuego bajo 25 minutos, moviendo de vez en cuando; si se seca, agrega un chorrito de agua.|Prueba, ajusta la sal y sirve con {2}.',
+      'chili|3|60|Sofríe la cebolla con {st} en 1 cucharada de aceite, 4 minutos.|Añade {0} y {1}, mezcla y cocina 5 minutos.|Agrega el tomate molido o picado, sal y 1 taza de agua; cuando hierva, baja a fuego mínimo.|Tapa parcialmente y cocina 40 minutos, moviendo cada 10, hasta que espese. Sirve con {2}.',
+      'tinga|3|50|Cuece {0} en agua con sal hasta que esté bien cocido y se deshaga; déjalo enfriar y deshébralo con dos tenedores.|Licúa el tomate con {st}, una pizca de sal y ¼ de taza de agua.|Sofríe cebolla en rodajas 4 minutos, vierte la salsa y cocina 10 minutos, moviendo.|Agrega {1} y {0} deshebrado y cocina 15 minutos a fuego bajo. Sirve con {2}.'],
+    patty: ['hamburguesa|2|25|En un bol, mezcla {0} con {st}, el huevo, la avena y sal, con las manos limpias, solo hasta que se integre (si la amasas de más queda dura).|Divide en 2 porciones y forma discos de 2 cm de grosor, con un hueco pequeño en el centro con el pulgar (así no se infla).|Calienta una sartén o plancha a fuego medio-alto con unas gotas de aceite y cocina 4-5 minutos por lado sin aplastar; deben quedar bien cocidas por dentro (74 °C).|Sirve en hojas de lechuga o pan con {1} y {2}.',
+      'albóndigas|3|40|Precalienta el horno a 200 °C y forra una charola con papel.|Mezcla {0} con {st}, el huevo, la avena y sal; forma bolitas de 3 cm (unas 8) mojándote las manos para que no se pegue.|Acomódalas en la charola sin que se toquen y hornea 18 minutos, volteándolas a la mitad.|Comprueba que estén bien cocidas cortando una por la mitad: no debe verse rosa. Sirve con {1} y {2}.',
+      'brochetas|2|30|Remoja palillos largos de madera 15 minutos para que no se quemen.|Corta {0} y {1} en cubos de 2.5 cm y márinalos 15 minutos con {st}, aceite y sal.|Ensarta alternando los ingredientes, sin apretarlos.|Cocina en la parrilla o sartén a fuego medio-alto 10 minutos, girando cada 2-3 minutos, hasta que estén dorados y bien cocidos. Acompaña con {2}.',
+      'croquetas al horno|3|45|Precalienta el horno a 200 °C y engrasa ligeramente una charola.|Tritura o machaca {0} hasta tener una pasta; mezcla con el huevo, la avena, {st} y sal.|Refrigera la masa 10 minutos para que sea fácil de manejar y forma 8 croquetas con las manos húmedas.|Hornea 20 minutos, volteándolas a la mitad, hasta que estén doradas. Sirve con {1} y {2}.'],
+    stuffed: ['relleno|2|40|Precalienta el horno a 190 °C.|Parte {0} por la mitad a lo largo y hueca el centro con una cuchara, dejando una pared de 1 cm; guarda la pulpa picada.|En una sartén con aceite saltea la pulpa 3 minutos y agrega {1} y {2} con {st} y sal; cocina 6 minutos.|Rellena las mitades, cubre con el queso y hornea 25 minutos, hasta que estén suaves al picarlas con un tenedor y el queso esté dorado.',
+      'rellenos gratinados|3|50|Precalienta el horno a 200 °C. Parte {0} a la mitad, hueca, unta con aceite y sal, y hornea 15 minutos boca abajo para suavizar.|Mientras, cocina {1} con {2} y {st} en sartén 6 minutos.|Voltea las mitades, rellénalas y cubre con queso.|Gratina 10 minutos, hasta que el queso burbujee y se dore.'],
+    omelet: ['omelette|1|10|Bate {f} con una pizca de sal y pimienta hasta que no se vean hebras de clara.|Calienta una sartén antiadherente de 20 cm a fuego medio con unas gotas de aceite y saltea {0} 2-3 minutos, hasta que se ablande; pásalo a un plato.|Baja el fuego a medio-bajo, vierte el huevo y deja que cuaje 1 minuto; con la espátula, lleva los bordes cocidos hacia el centro e inclina la sartén para que el huevo crudo llegue a los bordes.|Cuando casi no haya líquido (pero siga brillante), pon {0} y {1} en una mitad, dobla con la espátula y deja 30 segundos. Desliza al plato.',
+      'frittata al horno|2|25|Precalienta el horno a 190 °C.|Saltea {0} en una sartén apta para horno (de metal, sin mango de plástico) con aceite, 3 minutos.|Bate {f} con sal y pimienta, mezcla con {1} y viértelo sobre las verduras.|Cocina 2 minutos a fuego bajo y pasa al horno 12-15 minutos, hasta que el centro esté firme al tocarlo y los bordes ligeramente dorados. Deja reposar 3 minutos y corta en triángulos.',
+      'muffins de huevo|2|30|Precalienta el horno a 180 °C y engrasa 4 moldes de muffin con aceite.|Bate {f} con sal, pimienta y {st}.|Reparte {0} y {1} en los moldes y vierte el huevo hasta ¾ de su altura.|Hornea 18-20 minutos, hasta que estén firmes y dorados. Deja enfriar 5 minutos antes de desmoldar con un cuchillo.',
+      'soufflé|3|45|Precalienta el horno a 180 °C y engrasa un molde individual.|Separa las claras de las yemas de {f}. Mezcla las yemas con {0}, {1} y {st}.|Bate las claras con una pizca de sal a mano o con batidora hasta formar picos firmes (al voltear el bol no se caen).|Incorpora las claras en 2 tandas con movimientos envolventes de abajo hacia arriba, sin batir.|Vierte en el molde y hornea 25 minutos sin abrir el horno, hasta que haya crecido y esté dorado.'],
+    yog: ['bowl|1|5|Sirve {f} en un bowl.|Lava y prepara {0} y colócalo en un lado.|Añade {1} en otro lado, sin revolver, para que se vea bonito.|Termina con {2} y {st}.',
+      'parfait en vaso|1|8|Usa un vaso alto transparente.|Pon una capa de 3 cucharadas de {f} en el fondo.|Agrega una capa de {0} y luego una de {1}; repite una vez más.|Corona con {2} y {st}.',
+      'bowl helado (frozen)|2|15|Mezcla {f} con {0} en un recipiente y congela 40 minutos, hasta que esté firme en los bordes.|Rompe con un tenedor y bate hasta que quede cremoso (o pásalo por la licuadora 20 segundos).|Pásalo a un bowl y añade {1}, {2} y {st}. Come de inmediato.',
+      'yogur horneado|3|40|Precalienta el horno a 170 °C y engrasa un molde pequeño.|Mezcla {f} con {0}, 1 huevo y {st}.|Vierte en el molde y hornea 25 minutos, hasta que el centro esté firme.|Enfría 10 minutos y corona con {1} y {2}.'],
+    oats: ['avena cocida|1|10|Pon {f} con {2} en un cazo pequeño.|Cocina a fuego medio 5 minutos, moviendo seguido con una cuchara para que no se pegue, hasta que espese y se vea cremosa.|Apaga, agrega {0} y {st} y mezcla.|Sirve en un tazón y termina con {1}.',
+      'overnight oats|1|5|En un frasco de vidrio mezcla {f}, {2} y {st}.|Tapa y agita o revuelve bien para que no queden grumos.|Refrigera mínimo 6 horas (toda la noche).|Por la mañana, revuelve, y añade {0} y {1} encima.',
+      'avena horneada|2|35|Precalienta el horno a 180 °C y engrasa un molde pequeño.|Mezcla {f}, {2}, {0} y {st} en un bol.|Vierte en el molde y hornea 25 minutos, hasta que esté firme y dorada por encima.|Deja reposar 5 minutos y termina con {1}.',
+      'granola casera|3|45|Precalienta el horno a 150 °C y forra una charola con papel.|Mezcla {f} con {1}, {st} y una cucharada de aceite.|Extiende en una capa delgada y hornea 30 minutos, moviendo cada 10 para que se dore parejo.|Deja enfriar por completo (se pone crujiente al enfriar). Sirve con {0} y {2}.'],
+    toast: ['tostada|1|8|Tuesta {f} en el tostador o en una sartén seca, 2 minutos por lado, hasta que esté dorado y crujiente.|Unta {0} de orilla a orilla con el reverso de una cuchara.|Añade {1} en una capa uniforme y espolvorea {2}.',
+      'sándwich abierto|1|10|Tuesta {f} hasta que esté dorado.|Unta {0} sobre el pan.|Coloca {1} y espolvorea {2}.|Corta por la mitad en diagonal.',
+      'bocadillo gratinado|2|15|Precalienta el horno a 200 °C con la rejilla arriba.|Unta {0} en {f} y acomódalo en una charola.|Cubre con {1} y hornea 5-6 minutos, vigilando que no se queme.|Termina con {2}.'],
+    scramble: ['revuelto|1|12|Desmenuza {f} con las manos o un tenedor en trozos pequeños.|Calienta una sartén con aceite a fuego medio y saltea el tofu con {st} 4 minutos, hasta que se dore.|Añade {0} y {1} y cocina 3-4 minutos, hasta que estén suaves.|Termina con {2} y ajusta la sal.',
+      'scramble tipo mexicano|2|18|Calienta una sartén con aceite a fuego medio y saltea cebolla y {0} 3-4 minutos.|Agrega {f} desmenuzado con {st} y cocina 5 minutos, moviendo.|Suma {1} y deja 2 minutos más.|Sirve con {2} y unas gotas de limón.',
+      'burrito bowl|3|30|Desmenuza {f} y saltéalo con {st} 6 minutos hasta que se dore.|Ásalo {0} y {1} en otra sartén 5 minutos.|Arma el bowl: base de lo que prefieras, el tofu, las verduras y termina con {2}.'],
+    pancake: ['panqueques|2|20|Licúa {f} 20 segundos, hasta tener una masa lisa y ligeramente espesa (como crema para batir).|Calienta una sartén antiadherente a fuego medio y engrásala apenas con un trapito con aceite.|Vierte ¼ de taza de masa por panqueque; cuando salgan burbujas en la superficie y los bordes se vean secos (2 minutos), voltea y cocina 1 minuto más.|Sirve con {0} y {1}.',
+      'waffles|3|25|Licúa {f} hasta que quede lisa la masa. Deja reposar 5 minutos.|Calienta la wafflera y engrásala ligeramente.|Vierte la masa sin llegar a los bordes y cocina 4 minutos, hasta que deje de salir vapor y estén dorados.|Sirve con {0} y {1}.',
+      'crepas|3|30|Licúa {f} agregando ¼ de taza de agua extra, hasta que la mezcla esté muy fina como leche espesa; reposa 10 minutos.|Calienta una sartén antiadherente de 20 cm a fuego medio y vierte un cucharón (unas 3 cucharadas); gira la sartén para extender la masa en una capa delgada.|Cocina 1 minuto, voltea con una espátula y cocina 30 segundos más.|Rellena con {0} y {1}, y dobla en cuatro.'],
+    snackraw: ['crudos|1|5|Lava {0} y córtalo en bastones de unos 7 cm de largo y 1 cm de grosor.|Pon {1} en un tazón pequeño al centro de un plato.|Acomoda los bastones alrededor para mojar.',
+      'chips al horno|2|30|Precalienta el horno a 180 °C y forra una charola con papel.|Corta {0} en rebanadas muy finas (2 mm; usa una mandolina o un pelador) y sécalas con papel.|Mézclalas con 1 cucharadita de aceite, sal y {st}; acomódalas en una capa sin encimar.|Hornea 20 minutos, volteando a la mitad y vigilando al final: se dora rápido. Deja enfriar 5 minutos (se ponen crujientes) y sirve con {1}.',
+      'croquetas de verdura|3|35|Precalienta el horno a 200 °C y forra una charola con papel.|Ralla {0} fino, exprime con las manos para sacar el agua y mezcla con {st} y sal.|Si queda muy suelta, añade 1 cucharada de avena. Forma bolitas de 3 cm.|Hornea 20 minutos, volteando a la mitad, hasta que estén doradas. Sirve con {1}.'],
+    mix: ['mix|1|3|Mide {0} y {1} con una taza medidora.|Mezcla en un bol y divide en porciones de un puñado en bolsitas o frascos.',
+      'mix tostado|2|15|Precalienta el horno a 160 °C y forra una charola con papel.|Extiende {0}, rocía con {st} y hornea 8 minutos moviendo a la mitad, hasta que huela a tostado.|Deja enfriar 10 minutos y mezcla con {1}.'],
+    balls: ['bolitas|2|15|Tritura {f} con {0} en un procesador de alimentos hasta que quede una pasta pegajosa; si no tienes, machaca fuerte con un tenedor.|Agrega {1} y mezcla.|Con las manos húmedas forma bolitas de 3 cm y pásalas a un plato.|Refrigera 20 minutos para que se firmen.',
+      'barritas|3|40|Precalienta el horno a 170 °C y forra un molde cuadrado con papel.|Mezcla {f}, {0} y {1} hasta formar una masa y presiónala firmemente en el molde.|Hornea 20 minutos hasta que se dore ligeramente.|Enfría por completo antes de cortar en 6 barras.'],
+    roll: ['rollitos|1|10|Extiende {1} sobre la tabla (si son rebanadas, hazlas largas y delgadas).|Coloca {0} y {2} a lo largo de uno de los bordes.|Enrolla con firmeza y corta en trozos de 3 cm; sujeta con palillos si hace falta.',
+      'rollitos al horno|2|20|Precalienta el horno a 180 °C.|Extiende {1}, pon {0} y {2} y enrolla con firmeza, sujetando con palillos.|Hornea 10 minutos hasta que estén calientes y firmes.'],
+    eggs: ['huevos cocidos con|1|15|Pon los huevos en una olla, cúbrelos con agua fría hasta 2 cm por encima y llévalos a hervir a fuego alto.|En cuanto hierva, apaga el fuego, tapa y deja 10 minutos (12 si te gusta la yema bien firme).|Pásalos a un bol con agua fría y hielo 3 minutos, golpea la cáscara y pélalos desde la parte ancha.|Parte por la mitad y sirve con {0} y {1}, con sal y pimienta.',
+      'huevos rellenos de|2|20|Cuece los huevos como se indica (10 minutos), enfríalos y pélalos.|Córtalos por la mitad a lo largo y saca las yemas con una cucharita a un bol.|Aplasta las yemas con un tenedor y mezcla con {0}, {st} y sal.|Rellena las claras con una cuchara y termina con {1}.'],
+    mousse: ['mousse|2|15|Pon {f} y {0} en la licuadora.|Licúa 40 segundos, hasta que esté muy suave y sin grumos; si queda muy espesa, agrega 1 cucharada de agua.|Pásala a vasitos y refrigera 30 minutos (al enfriar se pone más cremosa).|Sirve con {1} y {2}.',
+      'pudín|1|10|Mezcla {f} con {0} en un frasco y revuelve bien.|Tapa y refrigera 2 horas, revolviendo una vez a los 15 minutos para que no se hagan grumos.|Sirve con {1} y {2}.',
+      'helado casero|2|10|Congela {0} en trozos al menos 4 horas.|Licúa con {f} unos 30-45 segundos, ayudándote de una cuchara para empujar los trozos.|Sirve de inmediato con {1} y {2}, o congela 30 minutos para una textura más firme.',
+      'paletas heladas|2|10|Licúa {f} con {0} hasta que quede suave.|Vierte en moldes para paleta (o vasos pequeños) y coloca un palito de madera.|Congela mínimo 4 horas. Para desmoldar, pasa agua tibia por fuera del molde 10 segundos.',
+      'copa en capas|3|25|Prepara una crema suave con {f} mezclando 1 minuto con un batidor.|En un vaso alto, alterna capas: crema, {0} y {1}, repitiendo 2 veces.|Termina con {2}.|Refrigera 20 minutos antes de servir.'],
+    bake: ['al horno|1|25|Precalienta el horno a 180 °C y forra una charola con papel.|Corta {0}, colócalo en la charola y espolvorea con {st}.|Hornea 20 minutos, hasta que se sienta suave al picarlo con un tenedor.|Sirve con {1} y {2}.',
+      'en sartén|1|12|Calienta una sartén a fuego medio con una gota de aceite.|Cocina {0} con {st} 6-8 minutos, volteando una vez, hasta que esté dorado y suave.|Sirve con {1} y {2}.',
+      'en brochetas asadas|2|18|Remoja palillos largos 15 minutos.|Ensarta {0} en cubos de 2.5 cm y ásalos 3 minutos por lado a fuego medio.|Sirve con {1} y {2}.',
+      'crumble|3|40|Precalienta el horno a 180 °C.|Mezcla {1} con {f} y {st} hasta formar migajas.|Acomoda {0} en un refractario pequeño, cúbrelo con el crumble y hornea 30 minutos, hasta que esté dorado y burbujee el jugo.|Deja reposar 5 minutos y sirve con {2}.'],
+    brownie: ['brownie|3|40|Precalienta el horno a 180 °C y forra un molde pequeño con papel.|Tritura o machaca {0} con {f} hasta que no queden grumos (en procesador o licuadora).|Vierte la masa en el molde, alisa y hornea 25 minutos: al picar con un palillo debe salir con migas húmedas, no líquido.|Enfría 15 minutos antes de cortar y decora con {1} y {2}.',
+      'galletas|2|30|Precalienta el horno a 175 °C y forra una charola con papel.|Mezcla {0} con {f} hasta formar una masa que se pueda moldear.|Forma 6 bolitas, aplástalas hasta 1 cm de grosor y acomódalas separadas.|Hornea 12 minutos, enfría 10 minutos en la charola (se endurecen al enfriar) y decora con {1} y {2}.',
+      'muffins|3|35|Precalienta el horno a 180 °C y coloca capacillos en un molde de muffins.|Mezcla {0} con {f} hasta que no queden grumos.|Llena los moldes ¾ y hornea 22 minutos, hasta que un palillo salga limpio.|Enfría 10 minutos y decora con {1} y {2}.',
+      'mug cake|1|5|Engrasa ligeramente una taza grande apta para microondas.|Mezcla {0} con {f} en la taza hasta que no queden grumos.|Microondas 90 segundos (si tu microondas es débil, 2 minutos); debe verse firme en el centro.|Deja reposar 1 minuto y termina con {1} y {2}.'],
+    nice: ['helado|1|8|Congela {0} y {1} en trozos al menos 4 horas.|Procesa con {f} y {st} hasta que quede cremoso, ayudándote de una cuchara para empujar los trozos.|Sirve de inmediato.',
+      'sorbete|2|10|Congela {0} y {1} en trozos.|Procesa con {f} y unos cubos de hielo hasta una textura suave.|Sirve en copas y come rápido para que no se derrita.',
+      'granizado|1|10|Congela {0} y {1}.|Tritura con {f} y hielo hasta que parezca nieve.|Sirve en un vaso con una pajita ancha.'],
+    panna: ['panna cotta ligera|3|30|Espolvorea 1 sobre de grenetina sin sabor en 3 cucharadas de agua fría y deja hidratar 5 minutos.|Calienta {f} con {st} sin dejar que hierva y disuelve la grenetina hidratada moviendo.|Vierte en vasitos y refrigera 4 horas, hasta que cuajen.|Corona con {0} y {1}.',
+      'cheesecake en vaso|2|20|Bate {f} con {st} hasta que quede cremoso.|En un vaso, alterna capas de {2}, la crema y {0}.|Termina con {1} y refrigera 1 hora.',
+      'crema fría|1|10|Mezcla {f} con {st} hasta que quede suave.|Sirve en un vaso con {0} y {1}.'],
+    smooth: ['licuado|1|5|Pon primero el líquido ({f}) en la licuadora y luego {0} (la fruta).|Añade {1} y {st}.|Licúa 30-40 segundos, hasta que no se vean trozos.|Sirve en un vaso frío; si no tienes la fruta congelada, agrega 3 cubos de hielo.',
+      'smoothie verde|1|5|Licúa primero {1} con {f} 30 segundos, para que las hojas se deshagan por completo.|Añade {0} y {st} y licúa 30 segundos más.|Prueba y, si te gusta más dulce, agrega más fruta.',
+      'batido proteico|1|5|Pon {f} y {0} en la licuadora.|Agrega {1} y {st}.|Licúa 30 segundos; si usas proteína en polvo, no licúes de más para que no haga mucha espuma.',
+      'batido helado|2|8|Congela {0} en trozos al menos 4 horas.|Licúa con {f} y {1}, 40 segundos, empujando los trozos con una cuchara.|Debe quedar espeso, casi como helado. Sirve de inmediato.'],
+    infus: ['agua infusionada|1|10|Lava y corta {0} y {1} en rodajas.|Colócalos en una jarra de 1 litro y vierte {f}.|Machaca suavemente con una cuchara para soltar el sabor y refrigera 2 horas.|Sirve con hielo.',
+      'té helado|2|20|Calienta agua sin que hierva a tope (unos 80 °C) y prepara el té con {f} durante 3 minutos, para que no se amargue.|Retira la bolsita y añade {0} y {1}.|Deja enfriar a temperatura ambiente y refrigera.|Sirve con hielo.',
+      'limonada natural|1|8|Exprime los limones y cuela para quitar semillas.|Mezcla con {f} en una jarra y agrega {0} y {1}.|Endulza, si quieres, con stevia al gusto, probando poco a poco.',
+      'kombucha exprés|3|30|Prepara una infusión fuerte con 2 bolsitas de té en {f} caliente y deja reposar 5 minutos.|Añade {0} y {1} y deja enfriar completamente.|Refrigera 1 hora y sirve con hielo.'],
+    hot: ['latte caliente|1|8|Calienta {f} en un cazo a fuego medio hasta que humee (sin hervir).|Disuelve {0} en la bebida caliente moviendo con una cuchara.|Añade {1} y {st}.|Si tienes un batidor, bate 30 segundos para hacer espuma.',
+      'té especiado|2|12|Hierve {f} con {1} a fuego medio durante 5 minutos.|Agrega {0}, apaga y deja reposar 5 minutos tapado.|Cuela y sirve caliente.',
+      'chocolate caliente fit|2|10|Calienta {f} en un cazo a fuego medio, sin que hierva.|Añade {0} y {1} y bate 1 minuto con un batidor hasta que no queden grumos.|Sirve humeante.'],
+    juice: ['jugo verde|1|8|Pon {0} en la licuadora con ½ taza de agua y licúa 30 segundos.|Agrega {1} y {2} y licúa 30 segundos más.|Cuela con un colador fino si prefieres un jugo sin fibra, presionando con una cuchara.',
+      'jugo detox|2|10|Licúa {0} y {1} con el agua 40 segundos.|Agrega {2} y unos cubos de hielo y licúa de nuevo.|Sirve enseguida para aprovechar los nutrientes.',
+      'licuado verde cremoso|2|8|Licúa {0} con {f} 30 segundos.|Añade {1} y {2} y licúa 30 segundos más hasta que esté cremoso.'],
   };
 
   Object.assign(M, {
@@ -182,7 +182,7 @@
       'guisado|2|40|Sofríe cebolla y ajo con el aceite 2 minutos.|Agrega el arroz crudo (⅓ de taza) y dóralo 2 minutos.|Añade {1}, {0}, el doble de agua o caldo y sal; tapa y cocina a fuego bajo 18-20 minutos sin destapar.|Reposa 5 minutos y esponja con tenedor.'],
     quesa: ['quesadillas|1|15|Calienta una sartén o comal a fuego medio.|Cocina {0} (ya picado) 3-4 minutos con una pizca de sal y reserva.|Coloca la tortilla en el comal, pon el queso panela en rebanadas y {0} en una mitad; dobla.|Cocina 2 minutos por lado hasta que dore y el queso esté suave. Sirve con {1}.',
       'quesadillas al horno|1|20|Precalienta el horno a 200 °C y forra una charola con papel.|Rellena las tortillas con queso y {0} ya cocido; dóblalas.|Hornea 8-10 minutos, volteando a la mitad. Sirve con {1}.',
-      'tostadas de queso|1|15|Calienta las tortillas en el comal sin aceite 1 minuto por lado.|Hornéalas a 200 °C 8 minutos hasta que estén crujientes.|Cubre con queso, {0} y hornea 3 minutos más. Termina con {1}.'],
+      'tostadas gratinadas|1|15|Calienta las tortillas en el comal sin aceite 1 minuto por lado.|Hornéalas a 200 °C 8 minutos hasta que estén crujientes.|Cubre con queso, {0} y hornea 3 minutos más. Termina con {1}.'],
     potato: ['al horno|2|50|Precalienta el horno a 210 °C.|Lava las papas con un cepillo, sécalas, córtalas en cubos de 2 cm y mézclalas con el aceite, el ajo picado y sal.|Extiéndelas en una charola en una sola capa y hornea 30-35 minutos, volteando a los 15, hasta que doren y se sientan suaves al picarlas.|Cocina {0} aparte en sartén 5 minutos y sirve sobre las papas con {1}.',
       'salteadas|1|25|Cuece las papas en cubos 8 minutos en agua con sal; escurre bien.|Calienta el aceite en sartén a fuego medio-alto, agrega papas y cocina 8 minutos sin mover mucho hasta dorar.|Añade ajo y {0}; cocina 4 minutos. Sirve con {1}.',
       'rellenas|2|65|Precalienta el horno a 200 °C. Lava la papa, píncha con un tenedor y hornéala entera 45-50 minutos.|Abre por la mitad, aplasta la pulpa con un tenedor con sal y un poco de aceite.|Cocina {0} 5 minutos en sartén y rellena. Gratina 5 minutos. Sirve con {1}.'],
@@ -202,6 +202,12 @@
       'tostadas en sartén|1|12|Calienta una sartén con una pizca de aceite y tuesta cada tortilla 2 minutos por lado.|Escurre sobre papel y cubre con {0} y {1}.'],
     fritters: ['en sartén|1|20|Ralla o pica finamente {0} y exprímelo con las manos para quitar el exceso de líquido.|Mezcla con el huevo, la avena y sal hasta formar una masa pegajosa.|Calienta una sartén con el aceite a fuego medio y forma tortitas de 1 cm de grosor con una cuchara.|Cocina 3-4 minutos por lado hasta que doren. Sirve con {1}.',
       'al horno|2|30|Precalienta el horno a 200 °C y forra una charola con papel.|Prepara la mezcla como arriba y forma 6 tortitas.|Hornea 12 minutos, voltea y hornea 8 más hasta que doren. Sirve con {1}.'],
+    sticks: ['crudos|1|5|Lava {0} y córtalo en bastones de unos 7 cm de largo y 1 cm de grosor.|Pon {1} en un tazón pequeño al centro de un plato.|Acomoda los bastones alrededor para mojar.',
+      'asados al horno|2|25|Precalienta el horno a 200 °C y forra una charola con papel.|Corta {0} en bastones de 1 cm, mézclalos con 1 cucharadita de aceite, sal y {st}.|Extiéndelos sin encimar y hornea 18-20 minutos, volteando a la mitad, hasta que estén dorados.|Sirve con {1}.',
+      'en freidora de aire|1|15|Precalienta la freidora de aire a 190 °C.|Corta {0} en bastones de 1 cm y mézclalos con 1 cucharadita de aceite, sal y {st}.|Cocina 10-12 minutos, moviendo la canasta a la mitad, hasta que estén dorados. Sirve con {1}.'],
+    chips: ['al horno|2|30|Precalienta el horno a 180 °C y forra una charola con papel.|Corta {0} en rebanadas muy finas (2 mm; con mandolina o pelador) y sécalas con papel.|Mézclalas con 1 cucharadita de aceite, sal y {st}; acomódalas en una capa sin encimar.|Hornea 20 minutos, volteando a la mitad y vigilando al final porque se doran rápido. Deja enfriar 5 minutos (se ponen crujientes) y sirve con {1}.',
+      'en freidora de aire|1|20|Precalienta la freidora de aire a 160 °C.|Corta {0} en rebanadas de 2 mm y sécalas con papel.|Mézclalas con unas gotas de aceite, sal y {st}.|Cocina 8-10 minutos, moviendo la canasta cada 3 minutos, hasta que estén crujientes. Sirve con {1}.',
+      'deshidratados en horno bajo|3|90|Precalienta el horno a 100 °C y forra dos charolas con papel.|Corta {0} en rebanadas muy finas (2 mm) y sécalas con papel.|Colócalas en una capa, espolvorea {st} y hornea 60-80 minutos, volteando a la mitad, hasta que estén secas y crujientes.|Deja enfriar 10 minutos y sirve con {1}.'],
     fruitsnack: ['rodajas|1|5|Lava la fruta y córtala en rodajas o bastones.|Acompaña con {1} para untar o espolvorear.',
       'brochetas|1|8|Lava y corta {0} en trozos de 2 cm.|Ensártalos en palillos y sirve con {1} al lado.'],
   });
@@ -254,12 +260,12 @@
   A('cena', '{m} de {0} con {1} y {2}', 'omelet', 'sav', 'huevo:120 aceite:5', VEGL, 'feta:25 aguacate:40 cottage:50 atun:40 pavo:40 mozz:30', 'tomate:60 espinaca:30 kale:30 pimiento:40');
 
   // APERITIVO
-  A('aperitivo', 'Bastones {m} de {0} con {1}', 'snackraw', 'sav', '', 'zanahoria:80 pepino:100 apio:80 pimiento:80 calabacin:80 coliflor:80 kale:40 camote:70 brocoli:80 tomate:90', 'hummus:40 aguacate:50 yogur:60 tahini:15 cottage:50 feta:25');
+  A('aperitivo', 'Bastones {m} de {0} con {1}', 'sticks', 'sav', '', 'zanahoria:80 pepino:100 apio:80 pimiento:80 calabacin:80 coliflor:80 kale:40 camote:70 brocoli:80 tomate:90', 'hummus:40 aguacate:50 yogur:60 tahini:15 cottage:50 feta:25');
   A('aperitivo', '{m} de {0} y {1}', 'mix', 'sweet', '', 'almendra:20 nuez:20 calabazas:20 mani:15 coco:15 chia:10', 'arandano:30 manzana:60 fresa:60 datil:15 cacao:8 platano:50 pera:60 kiwi:60');
   A('aperitivo', '{m} de {0} con {1}', 'balls', 'sweet', 'avena:30 datil:20', 'almendra:15 mani:15 nuez:15 tahini:12 coco:15 calabazas:15', 'cacao:8 chia:8 linaza:8 coco:8 arandano:15 canela:2');
   A('aperitivo', '{m} de {0} con {1} y {2}', 'roll', 'sav', '', 'pavo:40 atun:40 salmon:40 cottage:50 pollo:40 feta:25', 'pepino:70 lechuga:30 calabacin:70 zanahoria:60 pimiento:60', 'aguacate:30 hummus:20 tomate:30 yogur:25');
   A('aperitivo', '{m} {0}', 'eggs', 'sav', 'huevo:100', 'aguacate:40 yogur:30 hummus:25 atun:35 tomate:40 feta:20', 'espinaca:20 pimiento:30 tomate:40 pepino:30 calabazas:6');
-  A('aperitivo', 'Chips {m} de {0} con {1}', 'snackraw', 'sav', 'aceite:3', 'kale:40 manzana:80 calabacin:100 zanahoria:90 camote:70 pina:80 pera:90', 'yogur:60 hummus:40 aguacate:50 tahini:12 cottage:50');
+  A('aperitivo', 'Chips {m} de {0} con {1}', 'chips', 'sav', 'aceite:3', 'kale:40 manzana:80 calabacin:100 zanahoria:90 camote:70 pina:80 pera:90', 'yogur:60 hummus:40 aguacate:50 tahini:12 cottage:50');
 
   // POSTRE
   A('postre', '{m} de {0} con {1} y {2}', 'mousse', 'sweet', 'cacao:12 stevia:1', 'aguacate:80 yogur:120 tofu:120 platano:80 mani:20 chia:30', 'fresa:50 frambuesa:50 arandano:40 platano:40 mango:50 naranja:50', 'nuez:10 almendra:10 coco:8 chia:6 calabazas:8 canela:2');
@@ -338,7 +344,7 @@
     const a = decode(G);
     let loc = G - a.start;
     const sty = a.sty[loc % a.sty.length]; loc = Math.floor(loc / a.sty.length);
-    const met = a.M[loc % a.M.length]; loc = Math.floor(loc / a.M.length);
+    const metI = loc % a.M.length, met = a.M[metI]; loc = Math.floor(loc / a.M.length);
     const chosen = [];
     for (let i = 0; i < a.sl.length; i++) { chosen.push(a.sl[i][loc % a.sl[i].length]); loc = Math.floor(loc / a.sl[i].length); }
     const all = a.fx.concat(chosen);
@@ -357,16 +363,51 @@
     const r = { id: G, dup, cat: a.cat, name, lvl: met.l, t: met.t, kcal: Math.round(kcal), p: Math.round(p), ch: Math.round(ch), f: Math.round(f), sug: Math.round(sug), fl, keys, ar: a.i };
     if (full) {
       r.ings = all.map(([k, g]) => ({ k, n: nm(k), g }));
-      const steps = ['Lava y prepara ' + r.ings.map((x) => x.n).join(', ') + '.'];
-      met.s.forEach((s) => steps.push(fill(s, ctx)));
-      steps.push('Prueba, ajusta la sazón con ' + sty.sp + ' y sirve.');
-      r.steps = steps;
+      r.groups = J.makeSteps({ a, met, metI, all, chosen, ctx, sty });
+      r.steps = r.groups.reduce((x, g) => x.concat(g.items), []);
       r.diets = J.DIETS.filter((d) => d[2](r)).map((d) => d[0]);
     }
     return r;
   }
   J.recipe = (G) => build(G, true);
   J.recipeLite = (G) => build(G, false);
+
+  // Código de receta a partir de los índices elegidos (inverso de decode)
+  function encode(a, sl, mi, si) { let loc = 0; for (let i = a.sl.length - 1; i >= 0; i--) loc = loc * a.sl[i].length + sl[i]; return a.start + ((loc * a.M.length + mi) * a.sty.length + si); }
+  const STAPLES = new Set(['aceite', 'agua', 'stevia', 'canela']);
+  // Solo recetas hechas con lo que el usuario tiene en casa (además de aceite, agua, sal y pimienta)
+  J.searchHave = function (o) {
+    const have = new Set(o.have || []); STAPLES.forEach((k) => have.add(k));
+    const need = (o.diets || []).map((id) => J.DIETS.find((d) => d[0] === id)[2]);
+    const q = (o.q || '').toLowerCase().trim(), excl = (o.excl || []).map((s) => s.toLowerCase());
+    const pools = [];
+    AR.forEach((a) => {
+      if (o.cat && a.cat !== o.cat) return;
+      if (!a.fx.every(([k]) => have.has(k))) return;
+      const idx = a.sl.map((l) => l.map((x, i) => (have.has(x[0]) ? i : -1)).filter((i) => i >= 0));
+      if (idx.some((l) => !l.length)) return;
+      const n = idx.reduce((m, l) => m * l.length, 1) * a.M.length * a.sty.length;
+      pools.push({ a, idx, n });
+    });
+    const total = pools.reduce((m, p) => m + p.n, 0);
+    if (!total) return { items: [], cursor: 0, done: true, total: 0 };
+    let mult = Math.floor(total * 0.6180339887) | 1; while (gcd(mult, total) !== 1) mult += 2;
+    const off = (o.seed || 0) % total, items = [], seenName = new Set(); let pos = o.cursor || 0, scanned = 0;
+    while (items.length < (o.limit || 12) && scanned < (o.maxScan || 60000) && pos < total) {
+      let rem = (mult * pos + off) % total; pos++; scanned++;
+      let pl = null; for (const p of pools) { if (rem < p.n) { pl = p; break; } rem -= p.n; }
+      const a = pl.a, si = rem % a.sty.length; rem = Math.floor(rem / a.sty.length);
+      const mi = rem % a.M.length; rem = Math.floor(rem / a.M.length);
+      const sl = pl.idx.map((l) => { const v = l[rem % l.length]; rem = Math.floor(rem / l.length); return v; });
+      const r = build(encode(a, sl, mi, si), false);
+      if (r.dup || (o.lvl && r.lvl !== o.lvl) || (o.maxTime && r.t > o.maxTime)) continue;
+      if (need.length && !need.every((fn) => fn(r))) continue;
+      if (q && !(r.name.toLowerCase().includes(q) || r.keys.some((k) => ING[k][0].includes(q)))) continue;
+      if (excl.length && r.keys.some((k) => excl.some((e) => ING[k][0].includes(e)))) continue;
+      items.push(r);
+    }
+    return { items, cursor: pos, done: pos >= total, total };
+  };
 
   const gcd = (a, b) => (b ? gcd(b, a % b) : a);
   // Búsqueda: recorre el universo en un orden pseudoaleatorio (permutación) hasta juntar `limit` coincidencias.

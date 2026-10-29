@@ -8,9 +8,12 @@
   const dkey = (d = new Date()) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
   const nf = (n) => Math.round(n).toLocaleString('es-MX');
   const KEY = 'guacofit.v1';
-  const DEF = { profile: { name: '', sex: 'f', age: 30, h: 165, w: 70, gw: 62, act: 1.4, rate: 0.5, lvl: 1, diets: [], excl: '' }, weights: [], log: {}, plan: null, favs: [], shopDone: {}, workouts: 0, mood: 'auto', setup: false };
+  const DEF = { profile: { name: '', sex: 'f', age: 30, h: 165, w: 70, gw: 62, act: 1.4, rate: 0.5, lvl: 1, diets: [], excl: '' }, weights: [], log: {}, plan: null, favs: [], shopDone: {}, workouts: 0, mood: 'auto', setup: false, pantry: [], usePantry: false, dv: 2 };
   let S;
   try { S = Object.assign({}, DEF, JSON.parse(localStorage.getItem(KEY) || '{}')); S.profile = Object.assign({}, DEF.profile, S.profile); } catch (e) { S = JSON.parse(JSON.stringify(DEF)); }
+  // Si cambió el catálogo de recetas, los códigos guardados ya no coinciden: se reinicia el plan y las favoritas
+  let dataReset = false;
+  if (S.dv !== 2) { S.plan = null; S.favs = []; S.dv = 2; dataReset = true; }
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('No pude guardar: la memoria del navegador está llena'); } };
   const L = (k = dkey()) => S.log[k] || (S.log[k] = { food: [], water: 0, act: [] });
   const todayIdx = () => (new Date().getDay() + 6) % 7;
@@ -125,8 +128,8 @@
       <div class="seg" role="group" aria-label="Porciones">${[0.5, 1, 1.5, 2].map((v) => `<button class="${v === sv ? 'on' : ''}" data-a="rsv" data-id="${id}" data-v="${v}">${v === 1 ? '1 porción' : v + ' porc.'}</button>`).join('')}</div>
       <div class="nut"><div style="background:var(--butter-l)"><b>${Math.round(r.kcal * sv)}</b><span>kcal</span></div><div style="background:var(--avo-l)"><b>${f(r.p)}</b><span>proteína g</span></div><div style="background:var(--lav-l)"><b>${f(r.ch)}</b><span>carbos g</span></div><div style="background:var(--pink-l)"><b>${f(r.f)}</b><span>grasa g</span></div></div>
       <div class="wrapchips">${diets.map((d) => `<span class="tag t-g">${d}</span>`).join('')}</div>
-      <div><h3 class="fr" style="font-size:17px;margin-bottom:4px">Ingredientes</h3>${r.ings.map((i) => `<div class="ing"><span>${esc(i.n)}</span><span class="muted">${Math.round(i.g * sv)} g</span></div>`).join('')}</div>
-      <div style="display:flex;flex-direction:column;gap:8px"><h3 class="fr" style="font-size:17px">Preparación</h3>${r.steps.map((s, i) => `<div class="step"><b>${i + 1}</b><p>${esc(s)}</p></div>`).join('')}</div>
+      <div><h3 class="fr" style="font-size:17px;margin-bottom:4px">Ingredientes</h3>${r.ings.map((i) => `<div class="ing"><span>${esc(J.qty(i.k, i.g * sv))}</span></div>`).join('')}</div>
+      ${(() => { let n = 0; return r.groups.map((g) => `<div style="display:flex;flex-direction:column;gap:8px"><h3 class="fr" style="font-size:17px">${esc(g.h)}</h3>${g.items.map((t) => `<div class="step"><b>${++n}</b><p>${esc(t)}</p></div>`).join('')}</div>`).join(''); })()}
       <div class="grid2"><button class="pill green big" data-a="eat" data-id="${id}" data-v="${sv}">Comí esto</button><button class="pill pink big" data-a="toplan" data-id="${id}" data-v="${sv}">Añadir al plan</button></div>
       <button class="pill soft big" data-a="fav" data-id="${id}" data-sheet="1">${ic('heart', 20, 2.4, S.favs.includes(id) ? '#FF5C8A' : 'none')} ${S.favs.includes(id) ? 'Quitar de favoritas' : 'Guardar en favoritas'}</button>`);
   }
@@ -192,6 +195,7 @@
     const cats = [['', 'Todas', 'var(--ink)']].concat(J.CATS.map((c) => [c[0], c[1], CATCOL[c[0]]]));
     return `<div class="top"><div><div class="hand sub">elige tu antojo saludable</div><h1 class="disp">Recetas</h1></div><div class="fr" style="background:var(--avo-d);color:#fff;font-weight:600;font-size:12px;padding:7px 12px;border-radius:18px;text-align:center;line-height:1.15">${nf(J.TOTAL)}<br><span style="font-weight:500;font-size:11px">sin internet</span></div></div>
       <label class="search"><span class="muted">${ic('search', 22, 2.6)}</span><input id="q" type="search" placeholder="Busca pollo, aguacate, smoothie…" value="${esc(R.q)}" autocomplete="off"></label>
+      <div class="grid2"><button class="chip ${S.usePantry && S.pantry.length ? 'on' : ''}" data-a="usepan" style="padding:11px 14px">Solo con lo que tengo</button><button class="chip" data-a="pantry" style="padding:11px 14px">Mi despensa (${S.pantry.length})</button></div>
       <div class="chips" role="group" aria-label="Categoría">${cats.map((c) => `<button class="chip ${R.cat === c[0] && !R.fav ? 'on' : ''}" style="${R.cat === c[0] && !R.fav ? '' : c[0] ? 'background:' + c[2] + ';color:#3A2142' : ''}" data-a="rcat" data-v="${c[0]}">${c[1]}</button>`).join('')}<button class="chip ${R.fav ? 'on' : ''}" data-a="rfav">Favoritas (${S.favs.length})</button></div>
       <div><div class="hand muted" style="font-size:19px;margin-bottom:6px">tu tipo de dieta</div><div class="wrapchips">${J.DIETS.map((d) => `<button class="chip ${R.diets.includes(d[0]) ? 'on' : ''}" data-a="rdiet" data-v="${d[0]}">${d[1]}</button>`).join('')}</div></div>
       <div class="row"><div class="fr muted sm" style="font-weight:600">Nivel</div><div class="seg grow">${['Todos', 'Simple', 'Media', 'Compleja'].map((n, i) => `<button class="${R.lvl === i ? 'on' : ''}" data-a="rlvl" data-v="${i}">${n}</button>`).join('')}</div></div>
@@ -202,17 +206,33 @@
     if (reset) { R.cursor = 0; R.items = []; }
     const box = $('#rlist'); if (!box) return;
     if (R.fav) { R.items = S.favs.map((id) => J.recipeLite(id)); box.innerHTML = R.items.length ? R.items.map(recCard).join('') : '<div class="card blob2 muted" style="text-align:center">Toca el corazón en una receta para guardarla aquí.</div>'; return; }
-    const res = J.search({ cat: R.cat, diets: R.diets, lvl: R.lvl, q: R.q, excl: exclList(), seed: R.seed, cursor: R.cursor, limit: 12 });
+    const mine = S.usePantry && S.pantry.length;
+    const res = mine ? J.searchHave({ have: S.pantry, cat: R.cat, diets: R.diets, lvl: R.lvl, q: R.q, excl: exclList(), seed: R.seed, cursor: R.cursor, limit: 12 }) : J.search({ cat: R.cat, diets: R.diets, lvl: R.lvl, q: R.q, excl: exclList(), seed: R.seed, cursor: R.cursor, limit: 12 });
     R.cursor = res.cursor; R.items = R.items.concat(res.items);
-    box.innerHTML = R.items.length ? R.items.map(recCard).join('') : '<div class="card blob2 muted" style="text-align:center">No encontré recetas con esa mezcla. Quita algún filtro.</div>';
+    box.innerHTML = (mine ? `<div class="hand muted" style="font-size:19px">hechas solo con lo que tienes en casa</div>` : '') + (R.items.length ? R.items.map(recCard).join('') : `<div class="card blob2 muted" style="text-align:center">${mine ? 'Con tu despensa no hay recetas con esa mezcla de filtros. Marca más ingredientes en «Mi despensa» o quita algún filtro.' : 'No encontré recetas con esa mezcla. Quita algún filtro.'}</div>`);
   }
   const exclList = () => S.profile.excl.split(',').map((s) => s.trim()).filter(Boolean);
+
+  /* ---------- Mi despensa (qué tengo en casa) ---------- */
+  const PAN = [['Proteínas', 'pollo pavo res cerdo molida jamon salmon tilapia camaron atun sardina huevo clara tofu tempeh lenteja garbanzo frijol chicharo'], ['Lácteos', 'yogur cottage feta mozz panela mantequilla ldescremada lalmendra lcoco'], ['Verduras', 'tomate cebolla ajo pepino zanahoria brocoli espinaca calabacin coliflor champi pimiento esparrago berenjena kale lechuga ejote apio nopal chayote elote cilantro aguacate'], ['Frutas', 'platano manzana naranja limon fresa arandano mango frambuesa pina sandia pera kiwi durazno uva papaya melon datil'], ['Granos y panes', 'arroz arrozb quinoa avena pan tortilla pasta pastab camote papa'], ['Despensa', 'caldo almendra nuez chia calabazas linaza mani hummus tahini aceituna coco cacao te cafe miel jengibre menta curcuma proteina']];
+  const BASICS = 'huevo jamon pollo atun frijol arroz arrozb pasta pastab tortilla pan papa tomate cebolla ajo zanahoria limon platano manzana avena ldescremada panela aguacate caldo'.split(' ');
+  function openPantry() {
+    const known = new Set(PAN.flatMap((g) => g[1].split(' '))), rest = Object.keys(J.ING).filter((k) => !known.has(k) && !['aceite', 'agua', 'stevia', 'canela'].includes(k));
+    const groups = PAN.concat(rest.length ? [['Otros', rest.join(' ')]] : []);
+    openSheet(`<h2 class="disp" style="font-size:28px;padding-right:46px">Mi despensa</h2><div class="muted sm">Marca lo que tienes en casa. Aceite, agua, sal y pimienta ya se dan por hechos. Después usa «Solo con lo que tengo» y verás recetas que puedes cocinar ahora mismo.</div>
+      <div class="grid2"><button class="pill soft" data-a="ppreset">Marcar lo básico</button><button class="pill soft" data-a="pclear">Borrar todo</button></div>
+      ${groups.map((g) => `<div><div class="hand muted" style="font-size:20px;margin-bottom:4px">${g[0]}</div><div class="wrapchips">${g[1].split(' ').filter((k) => J.ING[k]).map((k) => `<button class="chip ${S.pantry.includes(k) ? 'on' : ''}" data-a="pchk" data-k="${k}">${esc(J.ING[k][0])}</button>`).join('')}</div></div>`).join('')}
+      <button class="pill green big" data-a="pdone">Listo (${S.pantry.length} ingredientes)</button>`);
+  }
+  const reopenPantry = () => { const y = $('#sheet').scrollTop; openPantry(); $('#sheet').scrollTop = y; };
 
   /* ---------- PLAN ---------- */
   let rnd = Math.random;
   const seedRng = (a) => () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
   function pickFor(cat, kcal, r, used) {
-    const res = J.search({ cat, diets: S.profile.diets, excl: exclList(), seed: Math.floor(r() * 1e7), limit: 40, maxScan: 40000 });
+    const seed = Math.floor(r() * 1e7);
+    let res = S.usePantry && S.pantry.length ? J.searchHave({ have: S.pantry, cat, diets: S.profile.diets, excl: exclList(), seed, limit: 40, maxScan: 20000 }) : { items: [] };
+    if (!res.items.length) res = J.search({ cat, diets: S.profile.diets, excl: exclList(), seed, limit: 40, maxScan: 40000 });
     const c = res.items.filter((x) => x.kcal > 40 && !used.has(x.name)).map((x) => ({ x, d: Math.abs(Math.log(kcal / x.kcal)) })).sort((a, b) => a.d - b.d).slice(0, 6);
     if (!c.length) return null;
     const x = c[Math.floor(r() * c.length)].x; used.add(x.name);
@@ -437,6 +457,12 @@
     ppause: () => { PL.paused = !PL.paused; drawPlayer(); },
     pnext: () => { if (PL.i >= PL.r.steps.length - 1) return finishPlayer(true); PL.i++; PL.left = PL.r.steps[PL.i].secs; announce(); drawPlayer(); },
     pprev: () => { PL.i = Math.max(0, PL.i - 1); PL.left = PL.r.steps[PL.i].secs; announce(); drawPlayer(); },
+    usepan: () => { if (!S.pantry.length) { openPantry(); return; } S.usePantry = !S.usePantry; save(); render(); },
+    pantry: () => openPantry(),
+    pchk: (e) => { const k = e.dataset.k, i = S.pantry.indexOf(k); i >= 0 ? S.pantry.splice(i, 1) : S.pantry.push(k); save(); reopenPantry(); },
+    ppreset: () => { BASICS.forEach((k) => { if (!S.pantry.includes(k)) S.pantry.push(k); }); save(); reopenPantry(); },
+    pclear: () => { S.pantry = []; S.usePantry = false; save(); reopenPantry(); },
+    pdone: () => { closeSheet(); if (S.pantry.length) S.usePantry = true; save(); render(); },
     rcat: (e) => { R.cat = e.dataset.v; R.fav = false; render(); }, rfav: () => { R.fav = !R.fav; render(); },
     rdiet: (e) => { const v = e.dataset.v, i = R.diets.indexOf(v); i >= 0 ? R.diets.splice(i, 1) : R.diets.push(v); render(); },
     rlvl: (e) => { R.lvl = +e.dataset.v; render(); }, rmore: () => { loadRec(false); toast('Más recetas listas'); }, rshuffle: () => { R.seed = Math.floor(Math.random() * 1e7); loadRec(true); },
@@ -465,6 +491,7 @@
   /* ---------- Inicio ---------- */
   applyMood(); setInterval(applyMood, 60000);
   if (!S.setup) { S.setup = true; save(); }
+  if (dataReset) { save(); setTimeout(() => toast('Actualicé las recetas con pasos detallados. Genera tu plan de nuevo.'), 800); }
   render();
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
