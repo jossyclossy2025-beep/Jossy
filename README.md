@@ -29,3 +29,6 @@ python3 -m http.server 8000   # y abrir http://localhost:8000
 - `js/exercise.js`: ejercicios, plan semanal y generador de rutinas.
 - `js/steps.js`: pasos detallados con medidas caseras. `js/mascots.js`: mascotas. `js/anim.js`: escenas de los pasos. `js/themes.js` y `css/themes.css`: temáticas. `js/dishes.js`: platillos.
 - `js/app.js`: interfaz y lógica. `sw.js`: caché offline. Fuentes en `fonts/`.
+
+## Guaco Swipe (`/fotos/`)
+App aparte para limpiar la galería: eliges fotos, detecta repetidas exactas, muy parecidas, borrosas y capturas, y decides con swipe tipo Tinder. Todo se procesa en el dispositivo. En celular solo puede marcar (el navegador no deja borrar de la galería); eligiendo una carpeta en Chrome/Edge de escritorio sí borra de verdad.
