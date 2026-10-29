@@ -1,0 +1,32 @@
+name: APK Guaco Swipe
+on:
+  push:
+    branches: [main, claude/meal-exercise-planner-nbh3bg]
+    paths: ['android/**', 'fotos/**', 'js/mascots.js', '.github/workflows/android.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apk
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - name: Preparar interfaz web dentro de la app
+        run: ./android/build-assets.sh
+      - uses: gradle/actions/setup-gradle@v4
+        with: { gradle-version: '8.9' }
+      - name: Compilar APK
+        run: gradle -p android assembleDebug --no-daemon --stacktrace
+      - uses: actions/upload-artifact@v4
+        with: { name: guaco-swipe-apk, path: android/app/build/outputs/apk/debug/app-debug.apk }
+      - name: Publicar en Releases (enlace fijo de descarga)
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk guaco-swipe.apk
+          gh release delete swipe-latest --yes --cleanup-tag || true
+          gh release create swipe-latest guaco-swipe.apk --target "${{ github.sha }}" --title "Guaco Swipe (Android)" --notes "APK listo para instalar en tu celular. Commit ${{ github.sha }}"

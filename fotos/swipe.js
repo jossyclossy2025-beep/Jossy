@@ -5,6 +5,7 @@
   const mb = (b) => b >= 1e9 ? (b / 1e9).toFixed(2) + ' GB' : (b / 1e6).toFixed(1) + ' MB';
   const nf = (n) => n.toLocaleString('es-MX');
   const store = { get: () => { try { return JSON.parse(localStorage.getItem('guacoswipe.v1')) || {}; } catch (e) { return {}; } }, set: (v) => { try { localStorage.setItem('guacoswipe.v1', JSON.stringify(v)); } catch (e) {} } };
+  const NATIVE = !!window.Android; // dentro de la app de Android hay acceso real a la galería
   let DEC = store.get(); // clave del archivo -> 'k' | 'd'
   const saveDec = () => store.set(DEC);
   const toast = (m) => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2200); };
@@ -13,7 +14,7 @@
   const keyOf = (it) => it.name + '|' + it.size + '|' + it.mod;
   const decOf = (it) => DEC[it.key];
   const setDec = (it, v) => { if (v) DEC[it.key] = v; else delete DEC[it.key]; saveDec(); };
-  const url = (it) => it._u || (it._u = URL.createObjectURL(it.file));
+  const url = (it) => it.nid != null ? '/n/view/' + it.nid : (it._u || (it._u = URL.createObjectURL(it.file)));
   const freeUrl = (it) => { if (it._u) { URL.revokeObjectURL(it._u); it._u = null; } };
 
   /* ---------- Lectura de fotos ---------- */
@@ -29,16 +30,27 @@
     await analyze();
   }
 
+  function scanNative() {
+    const go = () => {
+      let list = []; try { list = JSON.parse(Android.listImages()); } catch (e) {}
+      if (!list.length) { toast('No encontré fotos en la galería'); return; }
+      items = list.map((r, i) => { const it = { id: i, nid: r[0], name: r[1], size: r[2], mod: r[3], bucket: r[6] }; it.key = keyOf(it); return it; });
+      analyze();
+    };
+    if (Android.hasPermission()) go(); else { window.__perm = (ok) => (ok ? go() : toast('Necesito permiso para ver tus fotos')); Android.requestPermission(); }
+  }
   const cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
   async function analyzeOne(it) {
-    try {
+    const nat = it.nid != null; let src = it.file;
+    if (nat) { try { it.fp = (await (await fetch('/n/fp/' + it.nid)).text()).trim() || null; src = await (await fetch('/n/thumb/' + it.nid)).blob(); } catch (e) { it.fp = null; it.bad = true; it.th = ''; return; } }
+    else try {
       const head = await it.file.slice(0, 16384).arrayBuffer(), tail = await it.file.slice(Math.max(0, it.size - 16384)).arrayBuffer();
       const buf = new Uint8Array(head.byteLength + tail.byteLength + 8); buf.set(new Uint8Array(head)); buf.set(new Uint8Array(tail), head.byteLength);
       new DataView(buf.buffer).setFloat64(buf.length - 8, it.size);
       const dg = new Uint8Array(await crypto.subtle.digest('SHA-1', buf)); it.fp = Array.from(dg.slice(0, 10), (b) => b.toString(16).padStart(2, '0')).join('');
     } catch (e) { it.fp = null; }
     try {
-      const bmp = await createImageBitmap(it.file, { resizeWidth: 192, resizeQuality: 'medium' });
+      const bmp = await createImageBitmap(src, { resizeWidth: 192, resizeQuality: 'medium' });
       const W = bmp.width, H = bmp.height; it.asp = H / W;
       cv.width = W; cv.height = H; cx.drawImage(bmp, 0, 0);
       const px = cx.getImageData(0, 0, W, H).data, g = new Float32Array(W * H);
@@ -98,10 +110,11 @@
   function home() {
     const canDir = 'showDirectoryPicker' in window;
     app.innerHTML = `<div class="hero">${mas('aguacate', 120)}<div class="hand" style="font-size:22px">limpia tu galería sin dolor</div><h1 class="disp">Guaco Swipe</h1><p>Desliza a la derecha para quedarte una foto y a la izquierda para borrarla. Yo te muestro las repetidas, parecidas y borrosas.</p></div>
-      <label class="pill green big" style="cursor:pointer">Elegir mis fotos<input id="pick" type="file" accept="image/*" multiple hidden></label>
-      ${canDir ? '<button class="pill soft big" id="dir">Elegir una carpeta (puedo borrar de verdad)</button>' : ''}
-      <div class="card note"><b>Tu privacidad:</b> las fotos no salen de tu dispositivo, no se suben a ningún lado y funciona sin internet.<br><br><b>Sobre borrar:</b> el navegador del celular no me deja borrar fotos de tu galería. En el celular te dejo la lista marcada para borrarlas tú; en una computadora con Chrome o Edge, al elegir una carpeta sí las borro de verdad.</div>`;
-    $('#pick').onchange = (e) => addFiles(e.target.files);
+      ${NATIVE ? '<button class="pill green big" id="scan">Escanear mi galería</button>' : '<label class="pill green big" style="cursor:pointer">Elegir mis fotos<input id="pick" type="file" accept="image/*" multiple hidden></label>'}
+      ${canDir && !NATIVE ? '<button class="pill soft big" id="dir">Elegir una carpeta (puedo borrar de verdad)</button>' : ''}
+      <div class="card note"><b>Tu privacidad:</b> las fotos no salen de tu dispositivo, no se suben a ningún lado y funciona sin internet.<br><br>${NATIVE ? '<b>Sobre borrar:</b> las fotos que marques se mueven a la papelera de tu galería (Android te pide un permiso una vez por lote) y se quedan ahí unos 30 días por si te arrepientes.' : '<b>Sobre borrar:</b> el navegador del celular no me deja borrar fotos de tu galería. En el celular te dejo la lista marcada para borrarlas tú; en una computadora con Chrome o Edge, al elegir una carpeta sí las borro de verdad.'}</div>`;
+    const pk = $('#pick'); if (pk) pk.onchange = (e) => addFiles(e.target.files);
+    const sc = $('#scan'); if (sc) sc.onclick = scanNative;
     const d = $('#dir'); if (d) d.onclick = pickDir;
   }
   async function pickDir() {
@@ -126,10 +139,11 @@
       <div class="card stats"><div><b>${nf(items.length)}</b><span>fotos</span></div><div><b>${nf(del.length)}</b><span>para borrar</span></div><div><b>${mb(freed)}</b><span>se liberan</span></div></div>
       <div class="modes">${M('ex', '👯', '#FFD0DC', 'Repetidas exactas', 'La misma foto guardada varias veces', c.ex.length)}${M('sim', '🔍', '#E3DAFF', 'Muy parecidas', 'Ráfagas y tomas casi iguales: te propongo la mejor', c.sim.length)}${M('blur', '🌫️', '#CFF0B8', 'Borrosas', 'Las menos nítidas primero', c.blur.length)}${M('shot', '📱', '#FFE9A8', 'Capturas de pantalla', 'Las que se llaman «captura» o «screenshot»', c.shot.length)}${M('all', '👆', '#BFE6FF', 'Todas, estilo Tinder', 'Una por una, de la más vieja a la más nueva', c.all.length)}</div>
       <button class="pill red big" id="trash" ${del.length ? '' : 'disabled style="opacity:.45"'}>Revisar y borrar (${nf(del.length)})</button>
-      <label class="pill soft big" style="cursor:pointer">Agregar más fotos<input id="pick" type="file" accept="image/*" multiple hidden></label>
+      ${NATIVE ? '<button class="pill soft big" id="rescan">Volver a escanear la galería</button>' : '<label class="pill soft big" style="cursor:pointer">Agregar más fotos<input id="pick" type="file" accept="image/*" multiple hidden></label>'}
       <p class="note" style="text-align:center">${nf(kept.length)} fotos marcadas para quedarse.</p>`;
     $('#home').onclick = () => { if (confirm('¿Empezar de nuevo con otras fotos? Tus decisiones se guardan.')) { items.forEach(freeUrl); items = []; groups = []; dirRoot = null; screen = 'home'; render(); } };
-    $('#pick').onchange = (e) => addFiles(e.target.files);
+    const pk2 = $('#pick'); if (pk2) pk2.onchange = (e) => addFiles(e.target.files);
+    const rs = $('#rescan'); if (rs) rs.onclick = () => { items.forEach(freeUrl); items = []; groups = []; scanNative(); };
     const t = $('#trash'); if (t && del.length) t.onclick = () => { screen = 'trash'; render(); };
     app.querySelectorAll('.mode').forEach((b) => (b.onclick = () => start(b.dataset.m)));
   }
@@ -207,12 +221,12 @@
 
   /* ---------- Para borrar ---------- */
   function trash() {
-    const del = items.filter((i) => decOf(i) === 'd'), freed = del.reduce((s, i) => s + i.size, 0), canReal = del.some((i) => i.h);
+    const del = items.filter((i) => decOf(i) === 'd'), freed = del.reduce((s, i) => s + i.size, 0), canReal = del.some((i) => i.h), nat = NATIVE;
     app.innerHTML = `<div class="top"><button class="back" id="hb" aria-label="Volver">←</button><div class="grow"><div class="hand" style="font-size:19px;line-height:1">${mb(freed)} para liberar</div><h1 class="disp" style="font-size:28px;line-height:1.05">Para borrar (${nf(del.length)})</h1></div></div>
       <p class="note">Toca una foto si te arrepentiste y quieres quedártela.</p>
       <div class="grid g3">${del.slice(0, 300).map((i) => `<button class="tile d" data-id="${i.id}" aria-label="Rescatar ${esc(i.name)}"><img src="${i.th}" alt=""><span class="bd">${mb(i.size)}</span></button>`).join('')}</div>
       ${del.length > 300 ? `<p class="note" style="text-align:center">Mostrando 300 de ${nf(del.length)}.</p>` : ''}
-      ${canReal ? '<button class="pill red big" id="real">Borrar de verdad desde la carpeta</button>' : '<div class="card note"><b>En el celular no puedo borrar por ti.</b> Descarga la lista, abre tu galería y busca esas fotos por nombre y fecha para borrarlas. Con una carpeta elegida desde Chrome o Edge en computadora sí las borro de verdad.</div>'}
+      ${nat ? `<button class="pill red big" id="nat" ${del.length ? '' : 'disabled'}>Mover ${nf(del.length)} a la papelera</button><p class="note" style="text-align:center">Se quedan en la papelera de tu galería unos 30 días.</p>` : canReal ? '<button class="pill red big" id="real">Borrar de verdad desde la carpeta</button>' : '<div class="card note"><b>En el celular no puedo borrar por ti.</b> Descarga la lista, abre tu galería y busca esas fotos por nombre y fecha para borrarlas. Con una carpeta elegida desde Chrome o Edge en computadora sí las borro de verdad.</div>'}
       <button class="pill soft big" id="list">Descargar lista de nombres</button>
       ${navigator.share ? '<button class="pill soft big" id="share">Compartir lista</button>' : ''}`;
     $('#hb').onclick = () => { screen = 'hub'; render(); };
@@ -220,6 +234,15 @@
     const txt = () => 'Fotos para borrar (Guaco Swipe)\n\n' + del.map((i) => `${i.name}\t${fmtDate(i.mod)}\t${mb(i.size)}`).join('\n');
     $('#list').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt()], { type: 'text/plain' })); a.download = 'fotos-para-borrar.txt'; a.click(); };
     const sh = $('#share'); if (sh) sh.onclick = () => navigator.share({ title: 'Fotos para borrar', text: txt() }).catch(() => {});
+    const nb = $('#nat'); if (nb) nb.onclick = () => {
+      if (!confirm(`Voy a mover ${nf(del.length)} fotos a la papelera (${mb(freed)}). Android te pedirá confirmar. ¿Seguimos?`)) return;
+      window.__deleted = (ids, err) => {
+        const gone = new Set(ids); const n = items.filter((i) => gone.has(i.nid)).length;
+        items = items.filter((i) => !gone.has(i.nid)); items.forEach((i, k) => (i.id = k)); buildGroups();
+        toast(n ? `Listo: ${nf(n)} fotos en la papelera` : err ? 'No se pudo borrar (' + err + ')' : 'No se borró ninguna foto'); screen = 'hub'; render();
+      };
+      toast('Esperando tu confirmación…'); Android.deleteBatch(JSON.stringify(del.map((i) => i.nid)));
+    };
     const rl = $('#real'); if (rl) rl.onclick = async () => {
       if (!confirm(`Voy a borrar ${nf(del.length)} fotos de tu carpeta. Esto NO se puede deshacer. ¿Continuar?`)) return;
       let ok = 0, bad = 0; for (const i of del) { try { if (i.h) { await i.h.dir.removeEntry(i.h.name); ok++; i.gone = true; } } catch (e) { bad++; } }
@@ -227,6 +250,7 @@
     };
   }
 
+  window.__back = () => { if (screen === 'swipe' || screen === 'group' || screen === 'trash') { gsel = null; screen = 'hub'; render(); return true; } if (screen === 'hub' && items.length) { return false; } return false; };
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
   if (window.J && J.mascotCss) { const st = document.createElement('style'); st.textContent = J.mascotCss; document.head.appendChild(st); }
   render();
