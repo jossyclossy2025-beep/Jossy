@@ -97,7 +97,7 @@
     groups = [];
     m.forEach((l) => { if (l.length < 2) return; l.sort((a, b) => a.mod - b.mod); const score = (i) => i.size * (1 + Math.min(i.sharp || 0, 600) / 200); let best = l[0]; l.forEach((i) => { if (score(i) > score(best)) best = i; }); groups.push({ items: l, best, exact: l.every((i) => i.fp === l[0].fp) }); });
     groups.sort((a, b) => b.items.length - a.items.length);
-    items.forEach((i) => { i.shot = /screenshot|captura|screen[_ -]?shot/i.test(i.name); });
+    items.forEach((i) => { i.shot = /screenshot|captura|screen[_ -]?shot/i.test(i.name + ' ' + (i.bucket || '')); });
   }
   const pendingGroups = () => groups.filter((g) => g.items.some((i) => !decOf(i)));
 
