@@ -60,6 +60,7 @@
     return `<svg class="scn" viewBox="0 0 96 72" width="96" height="72" aria-hidden="true" focusable="false">${S[id](k)}</svg>`;
   };
   J.sceneName = sceneFor;
+  J.sceneInner = (id, key) => S[id](key);
   // Pausa las escenas que no se ven en pantalla
   J.watchScenes = function (root) {
     const els = root.querySelectorAll('.scn'); if (!('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('play')); return; }
