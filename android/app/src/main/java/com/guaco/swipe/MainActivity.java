@@ -202,17 +202,32 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface public String listImages() {
-            JSONArray arr = new JSONArray();
-            String[] cols = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.SIZE, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.DATE_MODIFIED, MediaStore.Images.Media.WIDTH, MediaStore.Images.Media.HEIGHT, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-            try (Cursor c = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cols, null, null, MediaStore.Images.Media.DATE_ADDED + " ASC")) {
-                while (c != null && c.moveToNext()) {
-                    long taken = c.getLong(3), mod = taken > 0 ? taken : c.getLong(4) * 1000L;
-                    JSONArray o = new JSONArray();
-                    o.put(c.getLong(0)).put(c.getString(1)).put(c.getLong(2)).put(mod).put(c.getInt(5)).put(c.getInt(6)).put(c.getString(7));
-                    arr.put(o);
-                }
-            } catch (Exception e) { /* devuelve lo que haya */ }
-            return arr.toString();
+            String err = "";
+            String[] full = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.SIZE, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.DATE_MODIFIED, MediaStore.Images.Media.WIDTH, MediaStore.Images.Media.HEIGHT, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+            String[] mini = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.SIZE, MediaStore.Images.Media.DATE_MODIFIED};
+            Uri[] bases = Build.VERSION.SDK_INT >= 29
+                    ? new Uri[]{MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), MediaStore.Images.Media.EXTERNAL_CONTENT_URI}
+                    : new Uri[]{MediaStore.Images.Media.EXTERNAL_CONTENT_URI};
+            for (Uri base : bases) for (int pass = 0; pass < 2; pass++) {
+                JSONArray arr = new JSONArray();
+                String[] cols = pass == 0 ? full : mini;
+                try (Cursor c = getContentResolver().query(base, cols, null, null, null)) {
+                    if (c == null) { err += "cursor nulo; "; continue; }
+                    while (c.moveToNext()) {
+                        JSONArray o = new JSONArray();
+                        if (pass == 0) {
+                            long taken = c.getLong(3), mod = taken > 0 ? taken : c.getLong(4) * 1000L;
+                            o.put(c.getLong(0)).put(c.getString(1)).put(c.getLong(2)).put(mod).put(c.getInt(5)).put(c.getInt(6)).put(c.getString(7) == null ? "" : c.getString(7));
+                        } else {
+                            o.put(c.getLong(0)).put(c.getString(1)).put(c.getLong(2)).put(c.getLong(3) * 1000L).put(0).put(0).put("");
+                        }
+                        arr.put(o);
+                    }
+                } catch (Exception e) { err += e.getClass().getSimpleName() + ": " + e.getMessage() + "; "; continue; }
+                if (arr.length() > 0) return arr.toString();
+                err += "0 filas (" + base + "); ";
+            }
+            return "ERR:Android " + Build.VERSION.SDK_INT + ", permiso " + hasPerm() + ". " + err;
         }
 
         /** ids en JSON: [1,2,3]. Resultado asíncrono en window.__deleted(idsBorrados, error). */

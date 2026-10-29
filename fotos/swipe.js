@@ -8,7 +8,7 @@
   const NATIVE = !!window.Android; // dentro de la app de Android hay acceso real a la galería
   let DEC = store.get(); // clave del archivo -> 'k' | 'd'
   const saveDec = () => store.set(DEC);
-  const toast = (m) => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2200); };
+  const toast = (m) => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2200 + m.length * 45); };
 
   let items = [], groups = [], screen = 'home', mode = null, queue = [], qi = 0, undo = [], gi = 0, dirRoot = null, prog = { n: 0, t: 0 };
   const keyOf = (it) => it.name + '|' + it.size + '|' + it.mod;
@@ -32,8 +32,8 @@
 
   function scanNative() {
     const go = () => {
-      let list = []; try { list = JSON.parse(Android.listImages()); } catch (e) {}
-      if (!list.length) { toast('No encontré fotos en la galería'); return; }
+      let list = [], raw = ''; try { raw = Android.listImages(); list = raw.startsWith('ERR:') ? [] : JSON.parse(raw); } catch (e) { raw = 'ERR:' + e; }
+      if (!list.length) { toast(raw.startsWith('ERR:') ? raw.slice(4) : 'No encontré fotos en la galería'); return; }
       items = list.map((r, i) => { const it = { id: i, nid: r[0], name: r[1], size: r[2], mod: r[3], bucket: r[6] }; it.key = keyOf(it); return it; });
       analyze();
     };
