@@ -46,6 +46,11 @@
     te: ['té verde', 1, 0, 0.2, 0, 0, ''], cafe: ['café', 2, 0.1, 0, 0, 0, ''], miel: ['miel', 304, 0.3, 82, 0, 82, 's'],
     canela: ['canela', 247, 4, 81, 1.2, 2, ''], jengibre: ['jengibre fresco', 80, 1.8, 18, 0.8, 1.7, ''],
     menta: ['hojas de menta', 44, 3.3, 8, 0.7, 0, ''], curcuma: ['cúrcuma', 312, 10, 67, 3, 3, ''], caldo: ['caldo de verduras bajo en sodio', 5, 0.2, 0.8, 0.1, 0.4, ''],
+    arrozb: ['arroz blanco cocido', 130, 2.7, 28, 0.3, 0.1, ''], pastab: ['pasta cocida', 158, 5.8, 31, 0.9, 0.6, 'g'],
+    jamon: ['jamón de pavo', 104, 17, 2, 3, 1, 'm'], panela: ['queso panela', 260, 18, 3, 20, 2, 'd'], molida: ['carne molida magra', 215, 26, 0, 12, 0, 'm'],
+    ajo: ['ajo', 149, 6.4, 33, 0.5, 1, ''], cilantro: ['cilantro', 23, 2.1, 3.7, 0.5, 0.9, ''], mantequilla: ['mantequilla', 717, 0.9, 0.1, 81, 0.1, 'd'],
+    nopal: ['nopales', 16, 1.3, 3.3, 0.1, 1.1, ''], chayote: ['chayote', 19, 0.8, 4.5, 0.1, 1.7, ''], elote: ['granos de elote', 96, 3.4, 21, 1.5, 4.5, ''],
+    durazno: ['durazno', 39, 0.9, 10, 0.3, 8.4, ''], uva: ['uvas', 69, 0.7, 18, 0.2, 15, ''], papaya: ['papaya', 43, 0.5, 11, 0.3, 7.8, ''], melon: ['melón', 34, 0.8, 8, 0.2, 7.9, ''],
     stevia: ['stevia', 0, 0, 0, 0, 0, ''],
   };
   J.ING = ING;
@@ -162,6 +167,45 @@
       'licuado verde cremoso|2|8|Licúa {0} con {f}.|Añade {1} y {2}.'],
   };
 
+  Object.assign(M, {
+    eggsimple: ['revueltos|1|8|Calienta una sartén antiadherente a fuego medio con el aceite 1 minuto.|Cocina {0} 2-3 minutos moviendo, hasta que suelte su aroma y se ablande.|Baja el fuego a bajo, vierte el huevo batido y mueve despacio con una espátula, formando grumos grandes, 1 a 2 minutos. Apaga cuando aún se vea un poco húmedo: terminará de cocerse con el calor de la sartén.|Sirve junto a {1}.',
+      'a la mexicana|1|12|Calienta la sartén a fuego medio con el aceite.|Sofríe {0} 3 minutos hasta que se ablande y se vea transparente.|Agrega el huevo batido y mueve suave 2 minutos hasta cuajar.|Sirve con {1} y un chorrito de limón.',
+      'estrellados|1|8|Calienta la sartén a fuego medio-bajo con el aceite y espera 1 minuto.|Rompe los huevos primero en una taza y deslízalos con cuidado a la sartén, sin que se toquen.|Tapa y cocina 3 minutos hasta que la clara esté blanca y la yema siga brillante.|Sirve sobre {1} y acompaña con {0}.',
+      'cocidos|1|15|Pon los huevos en una olla, cúbrelos con agua fría 2 cm por encima y llévalos a hervir.|En cuanto hierva, apaga, tapa y deja 10 minutos (12 para yema bien firme).|Pásalos a un bol con agua fría y hielo 3 minutos, golpea la cáscara y pélalos.|Pica {0}, mezcla con sal y sirve con los huevos partidos y {1}.',
+      'pochados|2|12|Hierve 1 litro de agua en una olla; baja a fuego mínimo (burbujas muy pequeñas) y agrega 1 cucharada de vinagre.|Rompe cada huevo en una taza pequeña, haz un remolino suave en el agua y deslízalo al centro.|Cocina 3 minutos y sácalo con espumadera, secándolo sobre papel.|Sirve sobre {1} con {0}.',
+      'al horno en ramekin|2|22|Precalienta el horno a 180 °C. Unta con aceite 2 moldes pequeños o tazas aptas para horno.|Coloca {0} en el fondo, rompe encima el huevo y añade sal y pimienta.|Hornea 12-15 minutos hasta que la clara cuaje.|Sirve con {1}.'],
+    sandwich: ['tostado|1|10|Calienta una sartén a fuego medio, tuesta una cara de las rebanadas 1 minuto.|Arma: sobre la cara sin tostar pon {0} y luego {1}; tapa con la otra rebanada.|Tuesta el sándwich 2 minutos por lado presionando con la espátula hasta que dore.|Córtalo por la mitad en diagonal.',
+      'frío|1|5|Corta las rebanadas por la mitad si quieres porciones pequeñas.|Unta o acomoda {0} sobre una rebanada, agrega {1} y cierra.|Presiona suave y corta en diagonal.',
+      'abierto gratinado|2|15|Precalienta el horno a 200 °C con la parrilla arriba.|Acomoda el pan en una charola, cubre con {0} y {1}.|Gratina 5-6 minutos hasta que los bordes doren.'],
+    rice: ['salteado|1|25|Sofríe cebolla y ajo con el aceite en una sartén grande 2 minutos a fuego medio.|Agrega {1} y cocina 4 minutos.|Añade {0} y 3 minutos más.|Incorpora el arroz y mezcla 3 minutos para que se caliente parejo; ajusta sal.',
+      'frito casero|2|25|Calienta una sartén a fuego alto y agrega el aceite; sofríe ajo y cebolla 1 minuto.|Agrega {1} y {0} y saltea 4 minutos.|Empuja todo a un lado, añade el arroz frío (de preferencia del día anterior) y saltea 4 minutos para que quede suelto.|Termina con unas gotas de salsa de soya baja en sodio.',
+      'guisado|2|40|Sofríe cebolla y ajo con el aceite 2 minutos.|Agrega el arroz crudo (⅓ de taza) y dóralo 2 minutos.|Añade {1}, {0}, el doble de agua o caldo y sal; tapa y cocina a fuego bajo 18-20 minutos sin destapar.|Reposa 5 minutos y esponja con tenedor.'],
+    quesa: ['quesadillas|1|15|Calienta una sartén o comal a fuego medio.|Cocina {0} (ya picado) 3-4 minutos con una pizca de sal y reserva.|Coloca la tortilla en el comal, pon el queso panela en rebanadas y {0} en una mitad; dobla.|Cocina 2 minutos por lado hasta que dore y el queso esté suave. Sirve con {1}.',
+      'quesadillas al horno|1|20|Precalienta el horno a 200 °C y forra una charola con papel.|Rellena las tortillas con queso y {0} ya cocido; dóblalas.|Hornea 8-10 minutos, volteando a la mitad. Sirve con {1}.',
+      'tostadas de queso|1|15|Calienta las tortillas en el comal sin aceite 1 minuto por lado.|Hornéalas a 200 °C 8 minutos hasta que estén crujientes.|Cubre con queso, {0} y hornea 3 minutos más. Termina con {1}.'],
+    potato: ['al horno|2|50|Precalienta el horno a 210 °C.|Lava las papas con un cepillo, sécalas, córtalas en cubos de 2 cm y mézclalas con el aceite, el ajo picado y sal.|Extiéndelas en una charola en una sola capa y hornea 30-35 minutos, volteando a los 15, hasta que doren y se sientan suaves al picarlas.|Cocina {0} aparte en sartén 5 minutos y sirve sobre las papas con {1}.',
+      'salteadas|1|25|Cuece las papas en cubos 8 minutos en agua con sal; escurre bien.|Calienta el aceite en sartén a fuego medio-alto, agrega papas y cocina 8 minutos sin mover mucho hasta dorar.|Añade ajo y {0}; cocina 4 minutos. Sirve con {1}.',
+      'rellenas|2|65|Precalienta el horno a 200 °C. Lava la papa, píncha con un tenedor y hornéala entera 45-50 minutos.|Abre por la mitad, aplasta la pulpa con un tenedor con sal y un poco de aceite.|Cocina {0} 5 minutos en sartén y rellena. Gratina 5 minutos. Sirve con {1}.'],
+    pasta: ['al ajo|1|20|Hierve agua con 1 cucharadita de sal (≈ 1 litro) y cuece la pasta según el paquete (8-10 minutos), hasta que esté al dente.|Mientras, calienta el aceite a fuego bajo y dora el ajo 30 segundos sin que se queme.|Agrega {1} y {0} y cocina 4-5 minutos.|Añade la pasta con ¼ de taza del agua de cocción y mezcla 1 minuto.',
+      'en salsa de tomate|2|35|Cuece la pasta al dente (8-10 minutos) y escúrrela.|Sofríe ajo con el aceite 1 minuto, agrega {1} y cocina 10 minutos hasta que se haga salsa; sazona con sal.|Añade {0} y cocina 5 minutos.|Mezcla con la pasta y sirve.',
+      'fría|1|20|Cuece la pasta al dente, escúrrela y enfríala bajo agua fría.|Mezcla con {1} picado y {0} ya cocido.|Aliña con aceite, limón y sal y refrigera 15 minutos.'],
+    saladsimple: ['picada|1|10|Pica {0} en cubitos y colócalo en un bol.|Añade {1}.|Aliña con el aceite, el jugo de limón, sal y pimienta y mezcla con cucharas.',
+      'rallada|1|12|Ralla {0} con el lado grueso del rallador.|Mezcla con {1} en un bol.|Aliña con aceite, limón y sal; deja reposar 5 minutos.',
+      'marinada|1|25|Corta {0} en rodajas finas y mézclalas con sal y limón.|Deja reposar 15 minutos y escurre el exceso de líquido.|Añade {1} y el aceite.'],
+    beans: ['refritos|1|20|Calienta el aceite a fuego medio y sofríe la cebolla picada con el ajo 3 minutos.|Agrega los frijoles con ¼ de taza de su caldo (o agua) y aplástalos con un machacador o tenedor.|Cocina 8 minutos moviendo hasta tener una pasta espesa; ajusta sal.|Sirve con {0}.',
+      'de la olla|1|15|Calienta los frijoles con su caldo, la cebolla y el ajo en una olla 10 minutos a fuego bajo.|Ajusta sal y sirve en un plato hondo con {0}.',
+      'molletes|2|20|Precalienta el horno a 200 °C. Prepara los frijoles refritos como indican arriba.|Unta sobre rebanadas de pan o tortilla y cubre con queso.|Gratina 6-8 minutos y sirve con {0}.'],
+    calab: ['a la mexicana|1|20|Calienta el aceite a fuego medio y sofríe la cebolla 2 minutos.|Agrega el calabacín en cubos y cocina 6 minutos.|Añade el elote y el tomate picado, tapa y cocina 8 minutos a fuego bajo.|Incorpora {0} y cocina 3 minutos.',
+      'guisadas|1|30|Sofríe la cebolla 2 minutos, agrega el tomate picado y cocina 5 minutos hasta que suelte jugo.|Suma el calabacín y el elote con ¼ de taza de agua; tapa 10 minutos.|Agrega {0}, ajusta sal y cocina 5 minutos.',
+      'gratinadas|2|40|Cocina las calabacitas como a la mexicana, 15 minutos.|Pásalas a un refractario, agrega {0} y hornea a 200 °C 10 minutos.'],
+    tostada: ['tostadas|1|12|Precalienta el horno a 200 °C. Coloca las tortillas en una charola sin encimarlas.|Hornea 8 minutos, volteando a la mitad, hasta que estén doradas y crujientes.|Cubre con {0} y termina con {1}.',
+      'tostadas en sartén|1|12|Calienta una sartén con una pizca de aceite y tuesta cada tortilla 2 minutos por lado.|Escurre sobre papel y cubre con {0} y {1}.'],
+    fritters: ['en sartén|1|20|Ralla o pica finamente {0} y exprímelo con las manos para quitar el exceso de líquido.|Mezcla con el huevo, la avena y sal hasta formar una masa pegajosa.|Calienta una sartén con el aceite a fuego medio y forma tortitas de 1 cm de grosor con una cuchara.|Cocina 3-4 minutos por lado hasta que doren. Sirve con {1}.',
+      'al horno|2|30|Precalienta el horno a 200 °C y forra una charola con papel.|Prepara la mezcla como arriba y forma 6 tortitas.|Hornea 12 minutos, voltea y hornea 8 más hasta que doren. Sirve con {1}.'],
+    fruitsnack: ['rodajas|1|5|Lava la fruta y córtala en rodajas o bastones.|Acompaña con {1} para untar o espolvorear.',
+      'brochetas|1|8|Lava y corta {0} en trozos de 2 cm.|Ensártalos en palillos y sirve con {1} al lado.'],
+  });
+
   const STY = {
     sav: ['mexicano|comino, chile en polvo y limón', 'mediterráneo|orégano, ajo y limón', 'asiático|jengibre, ajo y salsa de soya baja en sodio',
       'al limón|ralladura de limón, pimienta y perejil', 'al curry suave|curry, cúrcuma y comino', 'a las hierbas|tomillo, romero y perejil',
@@ -178,7 +222,7 @@
   J.CATS = [['desayuno', 'Desayuno', '🍳'], ['comida', 'Comida', '🍛'], ['cena', 'Cena', '🥗'], ['aperitivo', 'Aperitivo', '🥕'], ['postre', 'Postre', '🍓'], ['bebida', 'Bebida', '🥤']];
 
   const AR = [];
-  const A = (cat, name, m, st, fx, ...slots) => AR.push({ cat, name, M: M[m].map((x) => { const p = x.split('|'); return { n: p[0], l: +p[1], t: +p[2], s: p.slice(3) }; }), st, fx: fx ? S(fx) : [], sl: slots.map(S) });
+  const A = (cat, name, m, st, fx, ...slots) => AR.push({ cat, name, fam: m, M: M[m].map((x) => { const p = x.split('|'); return { n: p[0], l: +p[1], t: +p[2], s: p.slice(3) }; }), st, fx: fx ? S(fx) : [], sl: slots.map(S) });
 
   // DESAYUNO
   A('desayuno', '{m} de {0} y {1}', 'omelet', 'sav', 'huevo:120 aceite:5', VEGL, 'feta:30 mozz:30 aguacate:50 cottage:60 atun:50 pavo:50 aceituna:20 hummus:30');
@@ -234,6 +278,22 @@
   A('bebida', '{m} de {0} con {1}', 'hot', 'sweet', 'lalmendra:250', 'cacao:12 cafe:60 te:80 curcuma:2 canela:2', 'canela:2 jengibre:4 curcuma:2 miel:5 menta:3 stevia:1');
   A('bebida', '{m} de {0} con {1}', 'hot', 'sweet', 'ldescremada:250', 'cacao:12 cafe:60 te:80 curcuma:2 canela:2', 'canela:2 jengibre:4 curcuma:2 miel:5 menta:3 stevia:1');
   A('bebida', '{m} de {0}, {1} y {2}', 'juice', 'sweet', 'agua:150', 'pepino:100 apio:80 espinaca:50 kale:40 lechuga:60 brocoli:40', 'manzana:80 pina:60 limon:30 naranja:80 kiwi:60 pera:70 sandia:80', 'jengibre:5 menta:3 chia:8 limon:15 linaza:6');
+
+
+  // ---- RECETAS SIMPLES con ingredientes de casa ----
+  const HOME_VEG = 'tomate:80 cebolla:30 espinaca:50 champi:60 pimiento:50 nopal:70 calabacin:70 zanahoria:50';
+  A('desayuno', 'Huevos {m} con {0}, acompañados de {1}', 'eggsimple', 'sav', 'huevo:100 aceite:5', 'jamon:40 tomate:80 cebolla:30 espinaca:50 champi:60 panela:40 frijol:60 nopal:70 pimiento:50 elote:50', 'tortilla:60 pan:50 arrozb:100 papa:100 aguacate:50 camote:100');
+  A('desayuno', 'Sándwich {m} de {0} con {1}', 'sandwich', 'sav', 'pan:60', 'jamon:40 atun:60 panela:40 huevo:50 aguacate:60 cottage:50 pollo:60', 'tomate:50 lechuga:20 pepino:40 cebolla:15 zanahoria:30 espinaca:20');
+  A('comida', 'Arroz {m} con {0} y {1}', 'rice', 'sav', 'arroz:150 aceite:6 ajo:3 cebolla:30', 'pollo:120 huevo:100 atun:80 frijol:90 jamon:60 tofu:100 molida:100 lenteja:90', 'zanahoria:60 chicharo:50 elote:50 brocoli:60 pimiento:50 ejote:50 espinaca:40 calabacin:60');
+  A('comida', '{m} de {0} con {1}', 'quesa', 'sav', 'tortilla:90 panela:60', 'pollo:80 jamon:40 champi:80 nopal:80 espinaca:60 frijol:70 calabacin:80 pimiento:60 atun:60', 'aguacate:40 tomate:60 cebolla:20 cilantro:5 yogur:30 pepino:40');
+  A('comida', 'Papas {m} con {0} y {1}', 'potato', 'sav', 'papa:200 aceite:8 ajo:3', 'pollo:120 atun:80 huevo:100 jamon:50 panela:50 champi:80 frijol:80 molida:100 cebolla:40 brocoli:80', 'tomate:60 aguacate:40 lechuga:40 yogur:40 cebolla:20');
+  A('comida', 'Pasta {m} con {0} y {1}', 'pasta', 'sav', 'pastab:150 aceite:8 ajo:3', 'atun:80 pollo:100 jamon:50 camaron:100 molida:100 champi:80 tofu:100 panela:50', 'tomate:150 espinaca:50 calabacin:80 brocoli:80 pimiento:60 cebolla:30 chicharo:50');
+  A('comida', 'Ensalada {m} de {0} con {1}', 'saladsimple', 'sav', 'aceite:6 limon:15', 'tomate:120 pepino:120 zanahoria:100 lechuga:100 apio:60 pimiento:80', 'cebolla:20 aguacate:50 panela:40 atun:60 huevo:50 jamon:40 frijol:60 garbanzo:60');
+  A('comida', 'Frijoles {m} con {0}', 'beans', 'sav', 'frijol:200 aceite:5 cebolla:30 ajo:3', 'panela:50 aguacate:50 huevo:50 tortilla:60 tomate:60 arrozb:100 cottage:50');
+  A('cena', 'Calabacitas {m} con {0}', 'calab', 'sav', 'calabacin:200 elote:50 tomate:60 cebolla:30 aceite:6', 'panela:50 pollo:100 jamon:50 frijol:80 huevo:60 cottage:50');
+  A('cena', '{m} de {0} con {1}', 'tostada', 'sav', 'tortilla:60', 'atun:70 pollo:70 frijol:80 aguacate:60 panela:50 huevo:50 jamon:40 lenteja:80', 'tomate:60 lechuga:30 cebolla:15 pepino:40 zanahoria:30');
+  A('cena', 'Tortitas {m} de {0} con {1}', 'fritters', 'sav', 'huevo:50 avena:15 aceite:5', 'atun:80 calabacin:100 zanahoria:80 espinaca:60 brocoli:80 pollo:80 papa:80 elote:60 nopal:80', 'tomate:80 aguacate:40 yogur:40 lechuga:40 cebolla:20');
+  A('aperitivo', '{m} de {0} con {1}', 'fruitsnack', 'sweet', '', 'manzana:150 platano:120 pera:150 pepino:120 zanahoria:100 papaya:120 melon:150 durazno:130 uva:100', 'mani:15 yogur:60 almendra:15 canela:2 cottage:60 nuez:12');
 
   // Posiciones globales
   let acc = 0;

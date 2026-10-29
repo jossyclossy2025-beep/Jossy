@@ -316,58 +316,44 @@
     toast(`${done ? '¡Rutina completa! ' : ''}${min} min · ${Math.round(p.kcal)} kcal`);
   }
 
-  /* ---------- FOTO ---------- */
-  const F = { img: null, thumb: null, items: [], plate: 500, mult: 1, slot: 'comida', oil: false, cov: 0 };
-  const CLS = { verde: ['brocoli', ['brocoli', 'espinaca', 'lechuga', 'calabacin', 'aguacate', 'pepino', 'ejote', 'kale'], '#7CC35B'], rojo: ['tomate', ['tomate', 'pimiento', 'res', 'fresa', 'sandia'], '#FF7B6B'], naranja: ['zanahoria', ['zanahoria', 'camote', 'salmon', 'mango', 'naranja'], '#FF9F43'], amarillo: ['huevo', ['huevo', 'platano', 'pasta', 'mozz', 'papa'], '#FFD76A'], marron: ['pollo', ['pollo', 'res', 'cerdo', 'pan', 'tortilla', 'lenteja', 'tempeh'], '#C98A4F'], claro: ['arroz', ['arroz', 'papa', 'quinoa', 'yogur', 'cottage', 'pasta', 'coliflor'], '#F2EAD8'], oscuro: ['frijol', ['frijol', 'res', 'lenteja', 'cacao'], '#5B3A29'] };
-  function analyze(img) {
-    const N = 96, c = document.createElement('canvas'); c.width = c.height = N; const x = c.getContext('2d', { willReadFrequently: true });
-    const s = Math.min(img.width, img.height); x.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, N, N);
-    const d = x.getImageData(0, 0, N, N).data, px = (i, j) => { const o = (j * N + i) * 4; return [d[o], d[o + 1], d[o + 2]]; };
-    const ring = []; for (let a = 0; a < 64; a++) { const t = a / 64 * 6.283; ring.push(px(Math.round(N / 2 + Math.cos(t) * 44), Math.round(N / 2 + Math.sin(t) * 44))); }
-    const med = [0, 1, 2].map((k) => ring.map((p) => p[k]).sort((a, b) => a - b)[32]);
-    const cnt = {}; let food = 0, all = 0;
-    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
-      if ((i - 48) ** 2 + (j - 48) ** 2 > 46 * 46) continue; all++;
-      const [r, g, b] = px(i, j); if (Math.hypot(r - med[0], g - med[1], b - med[2]) < 42) continue; food++;
-      const mx = Math.max(r, g, b), mn2 = Math.min(r, g, b), v = mx / 255, sat = mx ? (mx - mn2) / mx : 0; let h = 0;
-      if (mx !== mn2) { const dd = mx - mn2; h = mx === r ? ((g - b) / dd) % 6 : mx === g ? (b - r) / dd + 2 : (r - g) / dd + 4; h = (h * 60 + 360) % 360; }
-      let k; if (v < 0.22) k = 'oscuro'; else if (sat < 0.2 && v > 0.55) k = 'claro'; else if (h >= 75 && h < 170 && sat > 0.25) k = 'verde'; else if ((h < 15 || h >= 340) && sat > 0.35) k = 'rojo'; else if (h >= 15 && h < 40) k = sat > 0.55 && v > 0.6 ? 'naranja' : 'marron'; else if (h >= 40 && h < 70 && sat > 0.3) k = 'amarillo'; else k = 'marron';
-      cnt[k] = (cnt[k] || 0) + 1;
-    }
-    const tot = Object.values(cnt).reduce((a, b) => a + b, 0) || 1;
-    F.cov = Math.min(1, Math.max(0.2, food / all));
-    F.items = Object.entries(cnt).filter(([, n]) => n / tot > 0.07).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, n]) => ({ k: CLS[k][0], share: n / tot, cls: k, g: 0 }));
-    if (!F.items.length) F.items = [{ k: 'pollo', share: 0.5, cls: 'marron', g: 0 }, { k: 'arroz', share: 0.5, cls: 'claro', g: 0 }];
-    const h = new Date().getHours(); F.slot = h < 11 ? 'desayuno' : h < 16 ? 'comida' : h < 19 ? 'aperitivo' : 'cena';
-    regrams();
+  /* ---------- FOTO: tú dices qué hay en el plato; la app calcula calorías ---------- */
+  const F = { img: null, thumb: null, items: [], slot: 'comida', oil: false };
+  const food = (k) => J.foodOf(k);
+  const itKcal = (it) => food(it.k)[1] * it.g / 100;
+  function fTot() { const a = { kcal: 0, p: 0, ch: 0, f: 0 }; F.items.forEach((it) => { const d = food(it.k), x = it.g / 100; a.kcal += d[1] * x; a.p += d[2] * x; a.ch += d[3] * x; a.f += d[4] * x; }); if (F.oil) { a.kcal += 120; a.f += 13; } return a; }
+  const fmt = (n) => (Math.round(n * 2) / 2).toString().replace('.5', '½').replace(/^0½$/, '½');
+  function foodRows(q) {
+    const t = q.trim().toLowerCase(), all = Object.keys(J.DISH).map((k) => [k, J.DISH[k], 'Platillo']).concat(Object.keys(J.ING).filter((k) => J.ING[k][1] > 5 && !['aceite', 'miel'].includes(k) || k === 'aceite').map((k) => [k, J.ING[k], 'Ingrediente']));
+    const rec = (S.recentFood || []).filter((k) => food(k)).map((k) => [k, food(k), 'Reciente']);
+    const rows = t ? all.filter((r) => r[1][0].toLowerCase().includes(t)) : rec.concat(all.filter((r) => r[2] === 'Platillo'));
+    return rows.slice(0, 40).map((r) => `<button class="exr" style="width:100%;text-align:left;border:0" data-a="fpick" data-k="${r[0]}"><div class="grow"><div class="ttl" style="font-size:14.5px">${esc(r[1][0])}</div><div class="muted sm">${r[1][8] ? '1 ' + r[1][7] + ' ≈ ' + r[1][8] + ' g · ' : ''}${Math.round(r[1][1])} kcal por 100 g</div></div><span class="tag t-l">${r[2]}</span></button>`).join('') || '<div class="muted sm">No encontré eso. Prueba con otra palabra, como «pastel», «taco» o «pollo».</div>';
   }
-  function regrams() { const total = F.cov * F.plate * F.mult; F.items.forEach((it) => { if (!it.manual) it.g = Math.round(total * it.share / 5) * 5; }); }
-  const itKcal = (it) => J.ING[it.k][1] * it.g / 100;
-  function fTot() { const a = { kcal: 0, p: 0, ch: 0, f: 0 }; F.items.forEach((it) => { const d = J.ING[it.k], x = it.g / 100; a.kcal += d[1] * x; a.p += d[2] * x; a.ch += d[3] * x; a.f += d[4] * x; }); if (F.oil) { a.kcal += 120; a.f += 13; } return a; }
+  function openFoodSearch() {
+    openSheet(`<h2 class="disp" style="font-size:26px;padding-right:46px">¿Qué hay en tu plato?</h2><label class="search"><span class="muted">${ic('search', 22, 2.6)}</span><input id="fq" type="search" placeholder="pastel, tacos, pizza, pollo, arroz…" autocomplete="off"></label><div id="fres" style="display:flex;flex-direction:column;gap:6px">${foodRows('')}</div>`);
+    const q = $('#fq'); q.addEventListener('input', () => { $('#fres').innerHTML = foodRows(q.value); }); setTimeout(() => q.focus(), 300);
+  }
   function vFoto() {
-    if (!F.img) return `<div class="top"><div><div class="hand sub">¿qué tan rico se ve?</div><h1 class="disp">Foto de comida</h1></div></div>
-      <div class="card blob" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 18px">${guaco(110, 'sprout')}<div class="hand" style="font-size:22px;line-height:1.15">Toma una foto de tu plato desde arriba y Guaco calcula las calorías. Funciona sin internet.</div><label class="pill pink big" style="cursor:pointer">${ic('cam', 22)} Tomar foto<input id="file" type="file" accept="image/*" capture="environment" hidden></label><label class="pill soft big" style="cursor:pointer">${ic('img', 22)} Elegir de la galería<input id="file2" type="file" accept="image/*" hidden></label></div>
-      <div class="card blob2 muted sm">Cómo funciona: detecto colores y el tamaño del plato en tu foto, sugiero los alimentos y tú los corriges. Es una estimación con ±30 % de margen, no una medición exacta.</div>`;
-    const t = targets(), tot = fTot(), pe = planEntry(todayIdx(), F.slot), exp = pe ? pe.kcal : Math.round(t.kcal * SLOTS.find((s) => s[0] === F.slot)[2]), diff = Math.round((tot.kcal - exp) / exp * 100);
-    const verdict = Math.abs(diff) <= 15 ? 'Justo lo esperado' : diff > 0 ? diff + ' % más de lo planeado' : Math.abs(diff) + ' % menos que lo planeado';
-    const scale = Math.max(tot.kcal, exp) * 1.1;
-    return `<div class="row"><button class="swap" data-a="fclear" aria-label="Volver">${ic('back', 20, 3)}</button><div class="grow"><div class="hand muted" style="font-size:19px;line-height:1">tu plato</div><h1 class="disp" style="font-size:30px;line-height:1.05">Esto veo</h1></div></div>
-      <div class="shot"><img src="${F.img}" alt="Tu foto de comida"><i class="corner" style="left:14px;top:14px;border-right:0;border-bottom:0;border-radius:14px 0 0 0"></i><i class="corner" style="right:14px;top:14px;border-left:0;border-bottom:0;border-radius:0 14px 0 0"></i><i class="corner" style="left:14px;bottom:14px;border-right:0;border-top:0;border-radius:0 0 0 14px"></i><i class="corner" style="right:14px;bottom:14px;border-left:0;border-top:0;border-radius:0 0 14px 0"></i><div class="scanl" style="--h:${Math.round(Math.min(innerWidth, 520) * 0.7)}px"></div></div>
-      <div class="row"><span class="fr muted sm" style="font-weight:600">Plato</span><div class="seg grow">${[[350, 'Chico'], [500, 'Normal'], [650, 'Grande'], [450, 'Bowl']].map((p) => `<button class="${F.plate === p[0] ? 'on' : ''}" data-a="fplate" data-v="${p[0]}">${p[1]}</button>`).join('')}</div></div>
-      <label class="field">Ajustar porción: ${Math.round(F.mult * 100)} %<input type="range" id="fmult" min="50" max="180" value="${Math.round(F.mult * 100)}"></label>
-      <div class="hand muted" style="font-size:20px">lo que veo (toca para corregir)</div>
-      ${F.items.map((it, i) => `<div class="frow"><i class="sw" style="background:${CLS[it.cls][2]}"></i><select data-a="fsel" data-i="${i}" aria-label="Alimento">${Object.keys(J.ING).filter((k) => J.ING[k][1] > 5).sort((a, b) => J.ING[a][0].localeCompare(J.ING[b][0])).map((k) => `<option value="${k}" ${k === it.k ? 'selected' : ''}>${J.ING[k][0]}</option>`).join('')}</select><input type="number" inputmode="numeric" data-a="fgr" data-i="${i}" value="${it.g}" aria-label="Gramos"><span class="fr muted sm">g</span><b class="fr" style="width:46px;text-align:right">${Math.round(itKcal(it))}</b><button class="swap" data-a="fdel" data-i="${i}" aria-label="Quitar">${ic('x', 16, 3)}</button></div>`).join('')}
-      <div class="grid2"><button class="pill soft" data-a="fadd">${ic('plus', 16, 3)} Añadir alimento</button><button class="pill ${F.oil ? 'green' : 'soft'}" data-a="foil">${F.oil ? '✓ ' : ''}Con aceite o salsa</button></div>
-      <div class="card blob2"><div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px"><div><div class="hand muted" style="font-size:19px;line-height:1">calorías aproximadas</div><div class="disp" style="font-size:42px;line-height:1.05">${Math.round(tot.kcal)} <span class="fr" style="font-size:15px">kcal</span></div></div><div class="fr" style="background:${Math.abs(diff) <= 15 ? 'var(--avo-l)' : 'var(--butter-l)'};font-weight:700;font-size:13px;padding:6px 12px;border-radius:16px;text-align:center;line-height:1.2">${verdict}</div></div>
-        <div class="cmp"><i style="width:${tot.kcal / scale * 100}%"></i><s style="left:calc(${exp / scale * 100}% - 2px)"></s></div><div class="fr" style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-top:6px"><span>Lo que veo · ${Math.round(tot.kcal)}</span><span>${pe ? 'Planeado' : 'Esperado'} · ${exp}</span></div>
-        <div class="muted sm" style="margin-top:6px">P ${Math.round(tot.p)} g · C ${Math.round(tot.ch)} g · G ${Math.round(tot.f)} g. Estimación por colores y tamaño del plato: puede variar ±30 %.</div></div>
+    if (!F.img) return `<div class="top"><div><div class="hand sub">¿cuántas calorías tiene?</div><h1 class="disp">Foto de comida</h1></div></div>
+      <div class="card blob" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 18px">${guaco(110, 'sprout')}<div class="hand" style="font-size:22px;line-height:1.15">Toma una foto de lo que vas a comer. Tú me dices qué es y yo calculo las calorías.</div><label class="pill pink big" style="cursor:pointer">${ic('cam', 22)} Tomar foto<input id="file" type="file" accept="image/*" capture="environment" hidden></label><label class="pill soft big" style="cursor:pointer">${ic('img', 22)} Elegir de la galería<input id="file2" type="file" accept="image/*" hidden></label><button class="pill soft big" data-a="fnophoto">${ic('search', 20)} Calcular sin foto</button></div>
+      <div class="card blob2 muted sm">Sin internet no puedo reconocer comida por la foto, porque eso necesita un modelo de inteligencia artificial muy pesado. Por eso tú eliges qué es en una lista con más de 80 platillos, antojos y todos los ingredientes. Las calorías son aproximadas: dependen de cómo estén preparados y del tamaño de la porción.</div>`;
+    const t = targets(), tot = fTot(), pe = planEntry(todayIdx(), F.slot), exp = pe ? pe.kcal : Math.round(t.kcal * SLOTS.find((s) => s[0] === F.slot)[2]), diff = exp ? Math.round((tot.kcal - exp) / exp * 100) : 0;
+    const verdict = !F.items.length ? 'Añade lo que comes' : Math.abs(diff) <= 15 ? 'Justo lo esperado' : diff > 0 ? diff + ' % más de lo planeado' : Math.abs(diff) + ' % menos que lo planeado';
+    const scale = Math.max(tot.kcal, exp, 1) * 1.1;
+    return `<div class="row"><button class="swap" data-a="fclear" aria-label="Volver">${ic('back', 20, 3)}</button><div class="grow"><div class="hand muted" style="font-size:19px;line-height:1">tu plato</div><h1 class="disp" style="font-size:30px;line-height:1.05">Dime qué hay</h1></div></div>
+      ${F.img === 'none' ? '' : `<div class="shot"><img src="${F.img}" alt="Tu foto de comida"></div>`}
+      ${F.items.length ? '' : `<div class="card blob2" style="text-align:center"><div class="hand" style="font-size:21px">Aún no me dices qué es. Toca «Añadir» y búscalo.</div></div>`}
+      ${F.items.map((it, i) => { const d = food(it.k); return `<div class="frow"><div class="grow"><div class="ttl" style="font-size:14.5px">${esc(d[0])}</div>${it.pg ? `<div class="muted sm">${fmt(it.g / it.pg)} ${d[7]}${it.g / it.pg === 1 ? '' : 's'} · ${it.g} g</div>` : `<div class="muted sm">${it.g} g</div>`}</div>${it.pg ? `<button class="swap" data-a="fport" data-i="${i}" data-d="-0.5" aria-label="Menos">−</button><button class="swap" data-a="fport" data-i="${i}" data-d="0.5" aria-label="Más">+</button>` : `<input type="number" inputmode="numeric" data-a="fgr" data-i="${i}" value="${it.g}" aria-label="Gramos"><span class="fr muted sm">g</span>`}<b class="fr" style="width:50px;text-align:right">${Math.round(itKcal(it))}</b><button class="swap" data-a="fdel" data-i="${i}" aria-label="Quitar">${ic('x', 16, 3)}</button></div>`; }).join('')}
+      <div class="grid2"><button class="pill green" data-a="fadd" style="justify-content:center">${ic('plus', 16, 3)} Añadir</button><button class="pill ${F.oil ? 'green' : 'soft'}" data-a="foil" style="justify-content:center">${F.oil ? '✓ ' : ''}Con aceite o salsa</button></div>
+      <div class="card blob2"><div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px"><div><div class="hand muted" style="font-size:19px;line-height:1">calorías aproximadas</div><div class="disp" style="font-size:42px;line-height:1.05">${Math.round(tot.kcal)} <span class="fr" style="font-size:15px">kcal</span></div></div><div class="fr" style="background:${Math.abs(diff) <= 15 && F.items.length ? 'var(--avo-l)' : 'var(--butter-l)'};font-weight:700;font-size:13px;padding:6px 12px;border-radius:16px;text-align:center;line-height:1.2">${verdict}</div></div>
+        <div class="cmp"><i style="width:${tot.kcal / scale * 100}%"></i><s style="left:calc(${exp / scale * 100}% - 2px)"></s></div><div class="fr" style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-top:6px"><span>Lo que comes · ${Math.round(tot.kcal)}</span><span>${pe ? 'Planeado' : 'Esperado'} · ${exp}</span></div>
+        <div class="muted sm" style="margin-top:6px">P ${Math.round(tot.p)} g · C ${Math.round(tot.ch)} g · G ${Math.round(tot.f)} g. Es una estimación: cambia según la receta y el tamaño de la porción.</div></div>
       <div class="row"><span class="fr muted sm" style="font-weight:600">Comida</span><div class="seg grow">${SLOTS.map((s) => `<button class="${F.slot === s[0] ? 'on' : ''}" data-a="fslot" data-v="${s[0]}">${s[1].slice(0, 5)}.</button>`).join('')}</div></div>
       <button class="pill green big" data-a="fsave">Guardar en mi día</button>`;
   }
   function loadPhoto(file) {
     if (!file) return;
     const rd = new FileReader();
-    rd.onload = () => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), s = Math.min(1, 900 / Math.max(im.width, im.height)); c.width = im.width * s; c.height = im.height * s; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); F.img = c.toDataURL('image/jpeg', 0.8); const t = document.createElement('canvas'); t.width = t.height = 72; const sq = Math.min(im.width, im.height); t.getContext('2d').drawImage(im, (im.width - sq) / 2, (im.height - sq) / 2, sq, sq, 0, 0, 72, 72); F.thumb = t.toDataURL('image/jpeg', 0.6); F.mult = 1; F.oil = false; analyze(im); render(); }; im.src = rd.result; };
+    rd.onload = () => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), s = Math.min(1, 900 / Math.max(im.width, im.height)); c.width = im.width * s; c.height = im.height * s; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); F.img = c.toDataURL('image/jpeg', 0.8); const t = document.createElement('canvas'); t.width = t.height = 72; const sq = Math.min(im.width, im.height); t.getContext('2d').drawImage(im, (im.width - sq) / 2, (im.height - sq) / 2, sq, sq, 0, 0, 72, 72); F.thumb = t.toDataURL('image/jpeg', 0.6); F.items = []; F.oil = false; const h = new Date().getHours(); F.slot = h < 11 ? 'desayuno' : h < 16 ? 'comida' : h < 19 ? 'aperitivo' : 'cena'; render(); openFoodSearch(); }; im.src = rd.result; };
     rd.readAsDataURL(file);
   }
 
@@ -414,7 +400,6 @@
     if (tab === 'rec') loadRec(true);
     const f1 = $('#file'), f2 = $('#file2'); [f1, f2].forEach((f) => f && f.addEventListener('change', () => loadPhoto(f.files[0])));
     const im = $('#imp'); if (im) im.addEventListener('change', () => { const rd = new FileReader(); rd.onload = () => { try { S = Object.assign({}, DEF, JSON.parse(rd.result)); save(); toast('Respaldo restaurado'); render(); } catch (e) { toast('Ese archivo no es un respaldo válido'); } }; rd.readAsText(im.files[0]); });
-    const fm = $('#fmult'); if (fm) fm.addEventListener('input', () => { F.mult = fm.value / 100; regrams(); }), fm.addEventListener('change', () => render());
     const q = $('#q'); if (q) { let t; q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { R.q = q.value; loadRec(true); }, 250); }); }
     const dayEl = $('.day.on'); if (dayEl && dayEl.scrollIntoView) dayEl.scrollIntoView({ block: 'nearest', inline: 'center' });
   }
@@ -455,10 +440,13 @@
     rcat: (e) => { R.cat = e.dataset.v; R.fav = false; render(); }, rfav: () => { R.fav = !R.fav; render(); },
     rdiet: (e) => { const v = e.dataset.v, i = R.diets.indexOf(v); i >= 0 ? R.diets.splice(i, 1) : R.diets.push(v); render(); },
     rlvl: (e) => { R.lvl = +e.dataset.v; render(); }, rmore: () => { loadRec(false); toast('Más recetas listas'); }, rshuffle: () => { R.seed = Math.floor(Math.random() * 1e7); loadRec(true); },
-    fclear: () => { F.img = null; render(); }, fplate: (e) => { F.plate = +e.dataset.v; regrams(); render(); }, fslot: (e) => { F.slot = e.dataset.v; render(); },
+    fclear: () => { F.img = null; F.items = []; render(); }, fslot: (e) => { F.slot = e.dataset.v; render(); },
+    fnophoto: () => { F.img = 'none'; F.thumb = null; F.items = []; F.oil = false; render(); openFoodSearch(); },
     fdel: (e) => { F.items.splice(+e.dataset.i, 1); render(); }, foil: () => { F.oil = !F.oil; render(); },
-    fadd: () => { F.items.push({ k: 'pollo', share: 0, cls: 'marron', g: 100, manual: 1 }); render(); },
-    fsave: () => { const t = fTot(); L().food.push({ id: Date.now(), name: 'Foto: ' + F.items.map((i) => J.ING[i.k][0]).join(', '), kcal: Math.round(t.kcal), p: Math.round(t.p), ch: Math.round(t.ch), f: Math.round(t.f), thumb: F.thumb }); save(); F.img = null; tab = 'hoy'; render(); toast('Guardado: ' + Math.round(t.kcal) + ' kcal'); },
+    fadd: () => openFoodSearch(),
+    fpick: (e) => { const k = e.dataset.k, d = food(k); F.items.push({ k, g: d[8] || 100, pg: d[8] || 0 }); S.recentFood = [k].concat((S.recentFood || []).filter((x) => x !== k)).slice(0, 8); save(); closeSheet(); render(); },
+    fport: (e) => { const it = F.items[+e.dataset.i], n = Math.max(0.5, Math.round((it.g / it.pg + +e.dataset.d) * 2) / 2); it.g = Math.round(n * it.pg); render(); },
+    fsave: () => { const t = fTot(); if (!F.items.length) return toast('Añade qué comes'); L().food.push({ id: Date.now(), name: (F.thumb ? 'Foto: ' : '') + F.items.map((i) => food(i.k)[0]).join(', '), kcal: Math.round(t.kcal), p: Math.round(t.p), ch: Math.round(t.ch), f: Math.round(t.f), thumb: F.thumb }); save(); F.img = null; F.items = []; tab = 'hoy'; render(); toast('Guardado: ' + Math.round(t.kcal) + ' kcal'); },
     wadd: () => { const v = parseFloat($('#wnew').value); if (!v) return toast('Escribe tu peso'); S.weights.push({ d: dkey(), w: v }); S.profile.w = v; save(); toast('Peso guardado'); render(); },
     pdiet: (e) => { const v = e.dataset.v, d = S.profile.diets, i = d.indexOf(v); i >= 0 ? d.splice(i, 1) : d.push(v); save(); render(); },
     mood: (e) => { S.mood = e.dataset.v; save(); lastMood = null; applyMood(); render(); },
@@ -469,8 +457,7 @@
   document.addEventListener('change', (ev) => {
     const e = ev.target, a = e.dataset && e.dataset.a;
     if (a === 'pf') { const k = e.dataset.k; S.profile[k] = ['name', 'excl'].includes(k) ? e.value : k === 'sex' ? e.value : parseFloat(e.value) || S.profile[k]; save(); render(); }
-    if (a === 'fsel') { F.items[+e.dataset.i].k = e.value; render(); }
-    if (a === 'fgr') { const it = F.items[+e.dataset.i]; it.g = Math.max(0, +e.value || 0); it.manual = 1; render(); }
+    if (a === 'fgr') { const it = F.items[+e.dataset.i]; it.g = Math.max(0, +e.value || 0); render(); }
   });
   $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeSheet(); });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) applyMood(); });
