@@ -169,8 +169,17 @@
     const f = L().food.filter((x) => !x.ref);
     return `<div class="card blob2"><div style="display:flex;justify-content:space-between;align-items:center"><div class="hand muted" style="font-size:20px">otros registros de hoy</div><button class="pill soft" style="padding:7px 12px" data-a="lflog">${ic('plus', 16, 3)} Añadir</button></div>${f.length ? f.map((x) => `<div class="row" style="padding:8px 0;border-bottom:2px dotted var(--line)">${x.thumb ? `<img src="${x.thumb}" width="40" height="40" style="border-radius:14px;object-fit:cover" alt="">` : ''}<div class="grow ttl" style="font-size:14.5px">${esc(x.name)}</div><b class="fr">${Math.round(x.kcal)} kcal</b><button class="swap" data-a="delfood" data-id="${x.id}" aria-label="Borrar">${ic('trash', 16, 2.4)}</button></div>`).join('') : '<div class="muted sm" style="padding-top:6px">Aquí aparecen las comidas que registres: antojos, platillos o ingredientes.</div>'}</div>`;
   }
+  let wsel = 'desayuno';
+  function hoyCtx(m, M, t, tot) {
+    const w = J.WEEK[S.profile.lvl][todayIdx()], pts = Object.keys(S.log).length * 10 + S.garden.owned.length * 25;
+    const d = new Date();
+    return { m, t, tot, esc, nf, ic, w, name: S.profile.name, greet: M.greet, water: L().water, workDone: L().act.some((a) => a.rt), sel: wsel, pts, lvl: 1 + Math.floor(pts / 100),
+      dateTxt: d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' }), mas: (k, sz, o) => J.mascot(k, sz, o),
+      slots: SLOTS.map(([s, nm]) => ({ s, nm, pe: planEntry(todayIdx(), s), done: L().food.some((x) => x.ref === 'plan:' + s) })) };
+  }
   function vHoy() {
     const m = moodNow(), M = MOODS[m], t = targets(), tot = totals();
+    if (J.LAYOUT[S.theme]) return J.LAYOUT[S.theme](hoyCtx(m, M, t, tot));
     const sec = {
       say: `<div style="display:flex;align-items:flex-end;gap:8px">${J.mascot(compKey(), 92, { acc: M.acc })}<div class="say hand blob">${sayText(m, t, tot)}</div></div>`,
       hero: secHero(m, t, tot), now: secNow(m), water: secWater(), meals: secMeals(), work: secWork(), extra: secExtra(),
@@ -188,7 +197,7 @@
       <label class="search"><span class="muted">${ic('search', 22, 2.6)}</span><input id="q" type="search" placeholder="Busca pollo, aguacate, smoothie…" value="${esc(R.q)}" autocomplete="off"></label>
       <div class="grid2"><button class="chip ${S.usePantry && S.pantry.length ? 'on' : ''}" data-a="usepan" style="padding:11px 14px">Solo con lo que tengo</button><button class="chip" data-a="pantry" style="padding:11px 14px">Mi despensa (${S.pantry.length})</button></div>
       <div class="chips" role="group" aria-label="Categoría">${cats.map((c) => `<button class="chip ${R.cat === c[0] && !R.fav ? 'on' : ''}" style="${R.cat === c[0] && !R.fav ? '' : c[0] ? 'background:' + c[2] + ';color:#3A2142' : ''}" data-a="rcat" data-v="${c[0]}">${c[1]}</button>`).join('')}<button class="chip ${R.fav ? 'on' : ''}" data-a="rfav">Favoritas (${S.favs.length})</button></div>
-      <div><div class="hand muted" style="font-size:19px;margin-bottom:6px">tu tipo de dieta</div><div class="wrapchips">${J.DIETS.map((d) => `<button class="chip ${R.diets.includes(d[0]) ? 'on' : ''}" data-a="rdiet" data-v="${d[0]}">${d[1]}</button>`).join('')}</div></div>
+      <div><div class="hand muted" style="font-size:19px;margin-bottom:6px">tu tipo de dieta</div><div class="wrapchips dietrow">${J.DIETS.map((d) => `<button class="chip ${R.diets.includes(d[0]) ? 'on' : ''}" data-a="rdiet" data-v="${d[0]}">${d[1]}</button>`).join('')}</div></div>
       <div class="row"><div class="fr muted sm" style="font-weight:600">Nivel</div><div class="seg grow">${['Todos', 'Simple', 'Media', 'Compleja'].map((n, i) => `<button class="${R.lvl === i ? 'on' : ''}" data-a="rlvl" data-v="${i}">${n}</button>`).join('')}</div></div>
       <div id="rlist" style="display:flex;flex-direction:column;gap:12px"></div>
       <div class="grid2"><button class="pill soft big" data-a="rmore">Ver más recetas</button><button class="pill pink big" data-a="rshuffle">${ic('swap', 18, 2.6)} Sorpréndeme</button></div>`;
@@ -412,9 +421,10 @@
   }
 
   /* ---------- TEMÁTICAS ---------- */
+  const themeGrid = () => `${J.THEMES.map((t) => `<button class="tcard press ${S.theme === t.id ? 'on' : ''}" data-a="theme" data-id="${t.id}" style="background:${t.pv.bg};color:${t.pv.ink}" aria-pressed="${S.theme === t.id}"><div class="tmas">${t.set.slice(0, 3).map((k, i) => J.mascot(k, 44, {})).join('')}</div><div class="tname" style="font-family:${t.pv.fd}">${esc(t.name)}</div><div class="tsub" style="font-family:${t.pv.fb}">${esc(t.blurb)}</div><span class="ttag" style="background:${t.pv.acc}">${esc(t.pv.t)}</span>${S.theme === t.id ? `<span class="tcheck" style="background:${t.pv.acc}">${ic('check', 16, 3.4)}</span>` : ''}</button>`).join('')}`;
   function vTemas() {
     return `<div class="top"><div><div class="hand sub">cambia todo: colores, letras, menú y fondo</div><h1 class="disp">Temáticas</h1></div><button class="dot press" style="background:var(--card);box-shadow:0 4px 0 var(--shadow)" data-a="tab" data-t="hoy" aria-label="Volver">${ic('back', 22, 3)}</button></div>
-      <div class="themes rise">${J.THEMES.map((t) => `<button class="tcard press ${S.theme === t.id ? 'on' : ''}" data-a="theme" data-id="${t.id}" style="background:${t.pv.bg};color:${t.pv.ink}" aria-pressed="${S.theme === t.id}"><div class="tmas">${t.set.slice(0, 3).map((k, i) => J.mascot(k, 44, {})).join('')}</div><div class="tname" style="font-family:${t.pv.fd}">${esc(t.name)}</div><div class="tsub" style="font-family:${t.pv.fb}">${esc(t.blurb)}</div><span class="ttag" style="background:${t.pv.acc}">${esc(t.pv.t)}</span>${S.theme === t.id ? `<span class="tcheck" style="background:${t.pv.acc}">${ic('check', 16, 3.4)}</span>` : ''}</button>`).join('')}</div>`;
+      <div class="themes rise">${themeGrid()}</div><button class="pill soft big" data-a="fx">Fondo animado: ${S.fx === 'lite' ? 'apagado (más rápido)' : 'encendido'}</button>`;
   }
 
   /* ---------- YO ---------- */
@@ -471,8 +481,10 @@
   function eatEntry(r, sv, ref) { const x = (v) => Math.round(v * sv * 10) / 10, col = colorsOf(J.recipe(r.id)); addColors(col, 1, dkey()); L().food.push({ id: Date.now() + Math.random(), ref, col, name: r.name, kcal: Math.round(r.kcal * sv), p: x(r.p), ch: x(r.ch), f: x(r.f) }); }
   const A = {
     close: () => closeSheet(), tab: (e) => { closeSheet(); navOpen = false; go(e.dataset.t); },
+    wsel: (e) => { wsel = e.dataset.s; render(); },
     navtog: () => { navOpen = !navOpen; renderNav(); },
-    theme: (e) => { S.theme = e.dataset.id; save(); J.applyTheme(S.theme); lastMood = null; applyMood(); toast('Temática: ' + J.themeById(S.theme).name); render(); },
+    theme: (e) => { S.theme = e.dataset.id; save(); J.applyTheme(S.theme); lastMood = null; applyMood(); renderNav(); const g = $('.themes'); if (g) g.innerHTML = themeGrid(); toast('Temática: ' + J.themeById(S.theme).name); },
+    fx: () => { S.fx = S.fx === 'lite' ? 'full' : 'lite'; save(); document.documentElement.dataset.fx = S.fx; render(); },
     habit: (e) => { const h = HAB.find((x) => x[0] === e.dataset.id); if (h[2] === 'auto') { toast('Este hábito se marca solo cuando lo logras'); return; } const d = gday(); d.h[h[0]] = !d.h[h[0]]; save(); render(); },
     rb: (e) => { const d = gday(); d.c[e.dataset.c] = (d.c[e.dataset.c] || 0) + 1; save(); render(); },
     rbm: (e) => { const d = gday(); d.c[e.dataset.c] = Math.max(0, (d.c[e.dataset.c] || 0) - 1); save(); render(); },
@@ -536,6 +548,9 @@
 
   /* ---------- Inicio ---------- */
   { const st = document.createElement('style'); st.textContent = J.mascotCss + J.animCss; document.head.appendChild(st); }
+  if (!S.fx) S.fx = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 3 ? 'lite' : 'full';
+  document.documentElement.dataset.fx = S.fx;
+  { let st; addEventListener('scroll', () => { const h = document.documentElement; if (!h.classList.contains('scrolling')) h.classList.add('scrolling'); clearTimeout(st); st = setTimeout(() => h.classList.remove('scrolling'), 160); }, { passive: true }); }
   J.applyTheme(S.theme);
   applyMood(); setInterval(applyMood, 60000);
   if (!S.setup) { S.setup = true; save(); }

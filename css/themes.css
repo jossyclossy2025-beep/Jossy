@@ -126,7 +126,6 @@ html[data-theme="galaxy"]{--ground:#0C0824;--card:rgba(255,255,255,.07);--ink:#E
   --rad:6px;--rad2:6px;--rpill:4px;--bw:1px;--bc:rgba(180,160,255,.4);--sh:0 0 22px rgba(120,90,255,.22);--shp:0 0 14px rgba(140,107,255,.5);--htx:#EDE7FF;--hsub:#B7A9E8;--ls:1.5px;--on-nav:#C4B5FF;color-scheme:dark}
 html[data-theme="galaxy"] body{background:radial-gradient(120% 80% at 70% 0%,#2A1670 0%,#150C45 40%,#07051A 100%) fixed}
 html[data-theme="galaxy"] .top h1{font-size:25px;font-weight:800;text-transform:uppercase;letter-spacing:3px}
-html[data-theme="galaxy"] .card,html[data-theme="galaxy"] .rc,html[data-theme="galaxy"] .exr,html[data-theme="galaxy"] .frow{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 /* ============ ARCADE PIXEL ============ */
 html[data-theme="arcade"]{--ground:#1A1033;--card:#2B1F5C;--ink:#FFFFFF;--ink2:#C9B8FF;--line:#FFFFFF33;--avo:#00E5A0;--avo-d:#00B880;--avo-dd:#007A55;--avo-l:#0B4F3B;--pink:#FF4F9A;--pink-d:#B8266C;--pink-l:#5C1A48;--butter:#FFEB3B;--butter-d:#B8A400;--butter-l:#5A5214;--lav:#7A5CFF;--lav-d:#4A32C2;--lav-l:#3A2A8A;--mint:#00E5A0;--nav:#0E0822;--shadow:#000;
   --f-disp:'Press Start 2P','VT323',monospace;--f-ui:'VT323','Press Start 2P',monospace;--f-body:'VT323',monospace;--f-hand:'VT323',monospace;
@@ -178,7 +177,6 @@ html[data-theme="winter"]{--ground:#DCEEFA;--card:rgba(255,255,255,.8);--ink:#1F
   --rad:26px;--rad2:26px;--rpill:20px;--bw:1px;--bc:#fff;--sh:0 10px 26px rgba(80,130,180,.28);--shp:0 6px 14px rgba(80,130,180,.28);--htx:#1F3B5A;--hsub:#5B7C9E;--ls:.5px}
 html[data-theme="winter"] body{background:linear-gradient(180deg,#BFDDF3 0%,#E4F2FC 45%,#FAFDFF 100%) fixed}
 html[data-theme="winter"] .top h1{font-size:44px;font-weight:700}
-html[data-theme="winter"] .card,html[data-theme="winter"] .rc{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 
 /* La interfaz usa estas variables en todos los temas */
 .top h1{color:var(--htx,var(--ink))}.top .sub{color:var(--hsub,var(--ink2))}
@@ -200,3 +198,8 @@ html[data-nav="side"] .step .scn{display:none}
 
 /* Colores de texto sobre el color principal (oscuro en temas con acento brillante) */
 .nv.on{color:var(--on-nav,var(--avo-d))}
+
+/* Rendimiento: pausa el fondo al hacer scroll y apágalo en modo ligero */
+html.scrolling .bg *,html.scrolling .nav *{animation-play-state:paused!important}
+html[data-fx="lite"] .bg .scene *,html[data-fx="lite"] .bg i{animation:none!important}
+.bg .scene{contain:strict;transform:translateZ(0)}
