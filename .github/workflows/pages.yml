@@ -1,7 +1,7 @@
 name: Publicar Guaco Fit
 on:
   push:
-    branches: [main]
+    branches: [main, claude/meal-exercise-planner-nbh3bg]
   workflow_dispatch:
 permissions:
   contents: read
